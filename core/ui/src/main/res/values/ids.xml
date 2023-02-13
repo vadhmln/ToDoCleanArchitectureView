@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="action_newFeatureFragment_to_secondFragment" type="id"/>
+    <item name="action_secondFragment_to_newFeatureFragment" type="id"/>
+
+</resources>
