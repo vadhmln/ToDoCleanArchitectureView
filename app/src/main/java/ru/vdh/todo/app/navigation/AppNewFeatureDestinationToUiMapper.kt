@@ -3,7 +3,7 @@ package ru.vdh.todo.app.navigation
 import ru.vdh.todo.core.presentation.model.PresentationDestination
 import ru.vdh.todo.core.ui.navigation.model.UiDestination
 import ru.vdh.todo.navigation.mapper.GlobalDestinationToUiMapper
-import ru.vdh.todo.newfeature.ui.mapper.NewFeatureDestinationToUiMapper
+import ru.vdh.todo.todolist.ui.mapper.NewFeatureDestinationToUiMapper
 
 class AppNewFeatureDestinationToUiMapper(
     private val globalDestinationToUiMapper: GlobalDestinationToUiMapper

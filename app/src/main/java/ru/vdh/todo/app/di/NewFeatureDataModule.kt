@@ -6,14 +6,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ru.vdh.todo.newfeature.data.datasource.NewFeatureDataSource
-import ru.vdh.todo.newfeature.data.mapper.NewFeatureDataModelToDataSourceMapper
-import ru.vdh.todo.newfeature.data.mapper.NewFeatureDataModelToDomainMapper
-import ru.vdh.todo.newfeature.data.repository.NewFeatureRepositoryImpl
-import ru.vdh.todo.newfeature.datasource.SharedPrefNewFeatureDataSource
-import ru.vdh.todo.newfeature.domain.repository.NewFeatureRepository
-import ru.vdh.todo.newfeature.presentation.mapper.NewFeatureDomainToPresentationMapper
-import ru.vdh.todo.newfeature.presentation.mapper.NewFeaturePresentationToDomainMapper
+import ru.vdh.todo.todolist.data.datasource.NewFeatureDataSource
+import ru.vdh.todo.todolist.data.mapper.NewFeatureDataModelToDataSourceMapper
+import ru.vdh.todo.todolist.data.mapper.NewFeatureDataModelToDomainMapper
+import ru.vdh.todo.todolist.data.repository.NewFeatureRepositoryImpl
+import ru.vdh.todo.todolist.datasource.SharedPrefNewFeatureDataSource
+import ru.vdh.todo.todolist.domain.repository.NewFeatureRepository
+import ru.vdh.todo.todolist.presentation.mapper.NewFeatureDomainToPresentationMapper
+import ru.vdh.todo.todolist.presentation.mapper.NewFeaturePresentationToDomainMapper
 import javax.inject.Singleton
 
 @Module

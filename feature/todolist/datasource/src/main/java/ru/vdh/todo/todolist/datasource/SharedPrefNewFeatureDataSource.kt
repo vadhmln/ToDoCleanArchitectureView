@@ -1,8 +1,8 @@
 package ru.vdh.todo.todolist.datasource
 
 import android.content.Context
-import ru.vdh.todo.newfeature.data.datasource.NewFeatureDataSource
-import ru.vdh.todo.newfeature.data.model.NewFeatureDataModel
+import ru.vdh.todo.todolist.data.datasource.NewFeatureDataSource
+import ru.vdh.todo.todolist.data.model.NewFeatureDataModel
 
 private const val SHARED_PREFS_NAME = "shared_prefs_name"
 private const val KEY_FIRST_NAME = "firstName"

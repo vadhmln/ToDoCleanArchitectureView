@@ -6,9 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.vdh.todo.core.presentation.viewmodel.BaseViewModel
 import ru.vdh.todo.core.presentation.viewmodel.usecase.UseCaseExecutorProvider
-import ru.vdh.todo.newfeature.domain.model.NewFeatureDomainModel
-import ru.vdh.todo.newfeature.domain.usecase.GetNewFeatureUseCase
-import ru.vdh.todo.newfeature.domain.usecase.SaveNewFeatureUseCase
+import ru.vdh.todo.todolist.domain.model.NewFeatureDomainModel
+import ru.vdh.todo.todolist.domain.usecase.GetNewFeatureUseCase
+import ru.vdh.todo.todolist.domain.usecase.SaveNewFeatureUseCase
 import ru.vdh.todo.todolist.presentation.mapper.NewFeatureDomainToPresentationMapper
 import ru.vdh.todo.todolist.presentation.mapper.NewFeaturePresentationToDomainMapper
 import ru.vdh.todo.todolist.presentation.model.NewFeaturePresentationNotification

@@ -1,6 +1,6 @@
 package ru.vdh.todo.todolist.presentation.mapper
 
-import ru.vdh.todo.newfeature.domain.model.NewFeatureDomainModel
+import ru.vdh.todo.todolist.domain.model.NewFeatureDomainModel
 import ru.vdh.todo.todolist.presentation.model.NewFeaturePresentationModel
 
 class NewFeaturePresentationToDomainMapper {

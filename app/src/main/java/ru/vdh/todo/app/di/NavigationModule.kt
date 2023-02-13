@@ -13,7 +13,7 @@ import dagger.hilt.android.components.ActivityComponent
 import ru.vdh.todo.R
 import ru.vdh.todo.app.navigation.AppNewFeatureDestinationToUiMapper
 import ru.vdh.todo.navigation.mapper.GlobalDestinationToUiMapper
-import ru.vdh.todo.newfeature.ui.mapper.NewFeatureDestinationToUiMapper
+import ru.vdh.todo.todolist.ui.mapper.NewFeatureDestinationToUiMapper
 
 @Module
 @InstallIn(ActivityComponent::class)
