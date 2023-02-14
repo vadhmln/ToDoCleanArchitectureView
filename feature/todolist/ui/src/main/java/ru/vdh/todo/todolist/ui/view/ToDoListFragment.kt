@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ru.vdh.todo.NavGraphDirections
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
@@ -73,7 +74,11 @@ class ToDoListFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentatio
         super.onViewCreated(view, savedInstanceState)
 
         binding.addToDoButton.setOnClickListener {
-//            findNavController().navigate(ToDoListFragmentDirections.)
+            findNavController().navigate(NavGraphDirections.actionGlobalToNavAddTodo())
+        }
+
+        binding.listLayout.setOnClickListener {
+//            findNavController().navigate(NavGraphDirections.actionGlobalToNavAddTodo())
         }
     }
 

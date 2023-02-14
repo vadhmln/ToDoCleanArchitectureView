@@ -1,0 +1,12 @@
+<resources>
+    <string name="add_to_do">Add To Do</string>
+    <string name="no_data">No Data</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+
+    <string-array name="priorities">
+        <item>High priority</item>
+        <item>Medium priority</item>
+        <item>Low priority</item>
+    </string-array>
+</resources>

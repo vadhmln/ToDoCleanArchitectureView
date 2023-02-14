@@ -11,9 +11,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import ru.vdh.todo.R
-import ru.vdh.todo.app.navigation.AppNewFeatureDestinationToUiMapper
+import ru.vdh.todo.app.navigation.AppAddToDoDestinationToUiMapper
+import ru.vdh.todo.app.navigation.AppToDoListDestinationToUiMapper
 import ru.vdh.todo.navigation.mapper.GlobalDestinationToUiMapper
-import ru.vdh.todo.todolist.ui.mapper.NewFeatureDestinationToUiMapper
 
 @Module
 @InstallIn(ActivityComponent::class)
@@ -36,8 +36,14 @@ class NavigationModule {
     ) = GlobalDestinationToUiMapper(lazyNavController)
 
     @Provides
-    fun providesAppNewFeatureDestinationToUiMapper(
+    fun providesAppToDoListDestinationToUiMapper(
         globalDestinationToUiMapper: GlobalDestinationToUiMapper
-    ): NewFeatureDestinationToUiMapper =
-        AppNewFeatureDestinationToUiMapper(globalDestinationToUiMapper)
+    ): ru.vdh.todo.todolist.ui.mapper.NewFeatureDestinationToUiMapper =
+        AppToDoListDestinationToUiMapper(globalDestinationToUiMapper)
+
+    @Provides
+    fun providesAppAddToDoDestinationToUiMapper(
+        globalDestinationToUiMapper: GlobalDestinationToUiMapper
+    ): ru.vdh.todo.addtodo.ui.mapper.NewFeatureDestinationToUiMapper =
+        AppAddToDoDestinationToUiMapper(globalDestinationToUiMapper)
 }

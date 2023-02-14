@@ -3,10 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_todo_list"
-    app:startDestination="@id/toDoListFragment">
+    app:startDestination="@id/toDoListFragment"
+    tools:ignore="UnusedNavigation">
+
     <fragment
         android:id="@+id/toDoListFragment"
         android:name="ru.vdh.todo.todolist.ui.view.ToDoListFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_list_todo" />
+        tools:layout="@layout/fragment_list_todo"/>
+
 </navigation>

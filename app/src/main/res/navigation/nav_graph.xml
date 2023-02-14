@@ -6,17 +6,21 @@
     app:startDestination="@id/nav_todo_list">
 
 
-    <action
-        android:id="@+id/action_global_to_todo_list"
-        app:destination="@id/nav_todo_list"
-        app:popUpTo="@id/nav_graph"
-        app:popUpToInclusive="true"/>
-
     <include
+        android:id="@id/nav_todo_list"
         app:graph="@navigation/nav_todo_list">
     </include>
 
+    <include
+        android:id="@id/nav_add_todo"
+        app:graph="@navigation/nav_add_todo">
+    </include>
 
+    <action android:id="@+id/action_global_to_nav_add_todo"
+        app:destination="@id/nav_add_todo"/>
+
+    <action android:id="@+id/action_global_to_nav_todo_list"
+        app:destination="@id/nav_todo_list"/>
 
 
 </navigation>

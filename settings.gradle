@@ -33,5 +33,17 @@ include ':feature:todolist:domain'
 include ':feature:todolist:data'
 include ':feature:todolist:datasource'
 
+include ':feature:addtodo:ui'
+include ':feature:addtodo:presentation'
+include ':feature:addtodo:domain'
+include ':feature:addtodo:data'
+include ':feature:addtodo:datasource'
+
+include ':feature:updatetodo:ui'
+include ':feature:updatetodo:presentation'
+include ':feature:updatetodo:domain'
+include ':feature:updatetodo:data'
+include ':feature:updatetodo:datasource'
+
 
 

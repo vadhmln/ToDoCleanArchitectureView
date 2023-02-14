@@ -56,6 +56,12 @@ dependencies {
     implementation project(':feature:todolist:data')
     implementation project(':feature:todolist:datasource')
 
+    implementation project(':feature:addtodo:ui')
+    implementation project(':feature:addtodo:presentation')
+    implementation project(':feature:addtodo:domain')
+    implementation project(':feature:addtodo:data')
+    implementation project(':feature:addtodo:datasource')
+
     implementation(libs.bundles.android.core)
     implementation(libs.bundles.fragment)
     implementation(libs.kotlinx.coroutines.android)
@@ -68,6 +74,7 @@ dependencies {
     implementation libs.androidx.junit.ktx
 
 }
+
 tasks.whenTaskAdded { task ->
     if (task.name.contains('generateSafeArgs')) {
         println("Added dependency to task " + task.name)
@@ -87,16 +94,16 @@ tasks.whenTaskAdded { task ->
     }
 }
 
-private static void move(File sourceFile, File destFile) {
+private def move(File sourceFile, File destFile) {
     if (sourceFile.isDirectory()) {
-        File[] files = sourceFile.listFiles();
-        assert files != null;
-        for (File file : files) move(file, new File(destFile, file.getName()));
-        if (!sourceFile.delete()) throw new RuntimeException();
+        File[] files = sourceFile.listFiles()
+        assert files != null
+        for (File file : files) move(file, new File(destFile, file.getName()))
+        if (!sourceFile.delete()) throw new RuntimeException()
     } else {
         if (!destFile.getParentFile().exists())
-            if (!destFile.getParentFile().mkdirs()) throw new RuntimeException();
-        if (!sourceFile.renameTo(destFile)) throw new RuntimeException();
+            if (!destFile.getParentFile().mkdirs()) throw new RuntimeException()
+        if (!sourceFile.renameTo(destFile)) throw new RuntimeException()
     }
 }
 
