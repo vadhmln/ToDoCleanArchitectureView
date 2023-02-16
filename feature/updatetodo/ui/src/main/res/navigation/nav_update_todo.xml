@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_add_todo"
-    app:startDestination="@id/toDoListFragment">
-    <fragment
-        android:id="@+id/toDoListFragment"
-        android:name="ru.vdh.todo.updatetodo.ui.view.AddToDoFragment"
-        android:label="Add"
-        tools:layout="@layout/fragment_update_todo" />
+    android:id="@+id/nav_update_todo"
+    app:startDestination="@id/updateToDoFragment">
 
+    <fragment
+        android:id="@+id/updateToDoFragment"
+        android:name="ru.vdh.todo.updatetodo.ui.view.UpdateToDoFragment"
+        android:label="Update"
+        tools:layout="@layout/fragment_update_todo" />
 </navigation>

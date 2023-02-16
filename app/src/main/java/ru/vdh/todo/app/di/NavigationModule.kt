@@ -14,6 +14,7 @@ import ru.vdh.todo.R
 import ru.vdh.todo.app.navigation.AppAddToDoDestinationToUiMapper
 import ru.vdh.todo.app.navigation.AppToDoListDestinationToUiMapper
 import ru.vdh.todo.navigation.mapper.GlobalDestinationToUiMapper
+import ru.vdh.todo.app.navigation.AppUpdateToDoDestinationToUiMapper
 
 @Module
 @InstallIn(ActivityComponent::class)
@@ -46,4 +47,10 @@ class NavigationModule {
         globalDestinationToUiMapper: GlobalDestinationToUiMapper
     ): ru.vdh.todo.addtodo.ui.mapper.NewFeatureDestinationToUiMapper =
         AppAddToDoDestinationToUiMapper(globalDestinationToUiMapper)
+
+    @Provides
+    fun providesAppUpdateToDoDestinationToUiMapper(
+        globalDestinationToUiMapper: GlobalDestinationToUiMapper
+    ): ru.vdh.todo.updatetodo.ui.mapper.NewFeatureDestinationToUiMapper =
+        AppUpdateToDoDestinationToUiMapper(globalDestinationToUiMapper)
 }

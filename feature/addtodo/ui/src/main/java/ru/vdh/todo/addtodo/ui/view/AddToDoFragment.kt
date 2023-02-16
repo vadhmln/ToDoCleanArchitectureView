@@ -3,14 +3,20 @@ package ru.vdh.todo.addtodo.ui.view
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import dagger.hilt.android.AndroidEntryPoint
-import ru.vdh.todo.NavGraphDirections
-
 import ru.vdh.todo.addtodo.presentation.model.NewFeaturePresentationNotification
 import ru.vdh.todo.addtodo.presentation.model.NewFeatureViewState
 import ru.vdh.todo.addtodo.presentation.viewmodel.NewFeatureViewModel
@@ -54,6 +60,22 @@ class AddToDoFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentation
     override fun View.bindViews() {
     }
 
+    private val menuProvider = object : MenuProvider {
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.add_todo_menu, menu)
+        }
+
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            return when (menuItem.itemId) {
+                R.id.menu_add -> {
+                    // AddToDoUseCase
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -69,17 +91,16 @@ class AddToDoFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentation
 
         _binding = FragmentAddTodoBinding.inflate(inflater, container, false)
 
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.toToDoButton.setOnClickListener {
-//            findNavController().navigate(NavGraphDirections.actionGlobalToNavTodoList())
-//        }
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
     }
 

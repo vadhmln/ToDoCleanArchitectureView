@@ -1,4 +1,9 @@
 <resources>
     <string name="add_to_do">Add To Do</string>
     <string name="no_data">No Data</string>
+    <string name="search">Search</string>
+    <string name="sort_by">Sort by</string>
+    <string name="priority_high">Priority high</string>
+    <string name="priority_low">Priority low</string>
+    <string name="delete_all">Delete all</string>
 </resources>

@@ -16,11 +16,32 @@
         app:graph="@navigation/nav_add_todo">
     </include>
 
-    <action android:id="@+id/action_global_to_nav_add_todo"
-        app:destination="@id/nav_add_todo"/>
+    <include
+        android:id="@id/nav_update_todo"
+        app:graph="@navigation/nav_update_todo">
+    </include>
 
-    <action android:id="@+id/action_global_to_nav_todo_list"
-        app:destination="@id/nav_todo_list"/>
+    <action
+        android:id="@+id/action_global_to_nav_todo_list"
+        app:destination="@id/nav_todo_list"
+        app:enterAnim="@anim/from_left"
+        app:exitAnim="@anim/to_right" />
+
+    <action
+        android:id="@+id/action_global_to_nav_add_todo"
+        app:destination="@id/nav_add_todo"
+        app:enterAnim="@anim/from_right"
+        app:exitAnim="@anim/to_left"
+        app:popEnterAnim="@anim/from_left"
+        app:popExitAnim="@anim/to_right" />
+
+    <action
+        android:id="@+id/action_global_to_nav_update_todo"
+        app:destination="@id/nav_update_todo"
+        app:enterAnim="@anim/from_left"
+        app:exitAnim="@anim/to_right"
+        app:popEnterAnim="@anim/from_right"
+        app:popExitAnim="@anim/to_left" />
 
 
 </navigation>

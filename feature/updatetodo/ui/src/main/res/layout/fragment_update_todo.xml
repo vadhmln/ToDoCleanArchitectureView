@@ -5,56 +5,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    tools:context=".view.AddToDoFragment">
-
-
+    tools:context=".view.UpdateToDoFragment">
 
     <EditText
-        android:id="@+id/title_edit_text"
+        android:id="@+id/current_title_edit_text"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="@android:color/transparent"
+        android:autofillHints="@string/title"
+        android:background="@drawable/custom_input"
         android:ems="10"
         android:hint="@string/title"
         android:inputType="textPersonName"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
+        android:textColorHint="#8D6E63"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/priorities_spinner"
+        android:id="@+id/current_priorities_spinner"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/custom_input"
         android:entries="@array/priorities"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/current_title_edit_text" />
 
     <EditText
-        android:id="@+id/description_edit_text"
+        android:id="@+id/current_description_edit_text"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
+        android:autofillHints="@string/description"
+        android:background="@drawable/custom_input"
         android:ems="10"
         android:gravity="top|start"
         android:hint="@string/description"
         android:inputType="textMultiLine"
         android:paddingStart="24dp"
-        android:paddingTop="16dp"
         android:paddingEnd="24dp"
+        android:paddingTop="16dp"
+        android:textColorHint="#8D6E63"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priorities_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/current_priorities_spinner" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

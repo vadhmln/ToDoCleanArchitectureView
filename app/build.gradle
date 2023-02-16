@@ -62,6 +62,12 @@ dependencies {
     implementation project(':feature:addtodo:data')
     implementation project(':feature:addtodo:datasource')
 
+    implementation project(':feature:updatetodo:ui')
+    implementation project(':feature:updatetodo:presentation')
+    implementation project(':feature:updatetodo:domain')
+    implementation project(':feature:updatetodo:data')
+    implementation project(':feature:updatetodo:datasource')
+
     implementation(libs.bundles.android.core)
     implementation(libs.bundles.fragment)
     implementation(libs.kotlinx.coroutines.android)

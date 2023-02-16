@@ -2,9 +2,9 @@
 <resources>
     <item name="action_newFeatureFragment_to_secondFragment" type="id"/>
     <item name="action_secondFragment_to_newFeatureFragment" type="id"/>
-    <item name="action_toDoListFragment_to_nav_add_todo" type="id"/>
     <item name="action_global_to_nav_add_todo" type="id"/>
     <item name="action_global_to_nav_todo_list" type="id"/>
-    <item name="action_toDoListFragment4_to_nav_add_todo" type="id"/>
+    <item name="action_global_to_nav_update_todo" type="id"/>
+
 
 </resources>

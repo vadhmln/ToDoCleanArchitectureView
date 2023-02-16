@@ -3,13 +3,17 @@ package ru.vdh.todo.updatetodo.ui.view
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.Lifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import ru.vdh.todo.NavGraphDirections
 
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
@@ -24,7 +28,7 @@ import ru.vdh.todo.updatetodo.ui.mapper.NewUserNotificationPresentationToUiMappe
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AddToDoFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentationNotification>(),
+class UpdateToDoFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentationNotification>(),
     NewFeatureViewsProvider {
 
     private var _binding: FragmentUpdateTodoBinding? = null
@@ -54,6 +58,26 @@ class AddToDoFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentation
     override fun View.bindViews() {
     }
 
+    private val menuProvider = object : MenuProvider {
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.update_todo_menu, menu)
+        }
+
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            return when (menuItem.itemId) {
+                R.id.menu_save -> {
+                    // AddToDoUseCase
+                    true
+                }
+                R.id.menu_delete -> {
+                    // AddToDoUseCase
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -77,9 +101,10 @@ class AddToDoFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentation
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.toToDoButton.setOnClickListener {
-//            findNavController().navigate(NavGraphDirections.actionGlobalToNavTodoList())
-//        }
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
     }
 
