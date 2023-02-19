@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'ru.vdh.todo.addtodo.datasource'
+    namespace 'ru.vdh.todo.core.database_local'
     compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
@@ -32,13 +32,17 @@ android {
 }
 
 dependencies {
-    implementation project(':feature:addtodo:data')
-    implementation project(':core:database-local')
+
+//    implementation project(':feature:addtodo:datasource')
 
     //Lifecycle components
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.livedata)
     kapt(libs.androidx.lifecycle.compiler)
 
-    implementation libs.androidx.junit.ktx
+    //Room
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
+    androidTestImplementation(libs.room.testing)
 }

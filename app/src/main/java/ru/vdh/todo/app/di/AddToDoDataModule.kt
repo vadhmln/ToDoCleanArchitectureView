@@ -1,19 +1,16 @@
 package ru.vdh.todo.app.di
 
-import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ru.vdh.todo.addtodo.data.datasource.NewFeatureDataSource
-import ru.vdh.todo.addtodo.data.mapper.NewFeatureDataModelToDataSourceMapper
-import ru.vdh.todo.addtodo.data.mapper.NewFeatureDataModelToDomainMapper
-import ru.vdh.todo.addtodo.data.repository.NewFeatureRepositoryImpl
-import ru.vdh.todo.addtodo.datasource.SharedPrefNewFeatureDataSource
-import ru.vdh.todo.addtodo.domain.repository.NewFeatureRepository
-import ru.vdh.todo.addtodo.presentation.mapper.NewFeatureDomainToPresentationMapper
-import ru.vdh.todo.addtodo.presentation.mapper.NewFeaturePresentationToDomainMapper
+import ru.vdh.todo.addtodo.data.datasource.AddToDoDataSource
+import ru.vdh.todo.addtodo.data.mapper.AddToDoDataToDomainMapper
+import ru.vdh.todo.addtodo.data.mapper.AddToDoDomainToDataMapper
+import ru.vdh.todo.addtodo.data.repository.AddToDoRepositoryImpl
+import ru.vdh.todo.addtodo.domain.repository.AddToDoRepository
+import ru.vdh.todo.addtodo.presentation.mapper.AddToDoDomainToPresentationMapper
+import ru.vdh.todo.addtodo.presentation.mapper.AddToDoPresentationToDomainMapper
 import javax.inject.Singleton
 
 @Module
@@ -21,32 +18,26 @@ import javax.inject.Singleton
 class AddToDoDataModule {
 
     @Provides
-    fun providesNewFeatureDataModelToDomainMapper() = NewFeatureDataModelToDomainMapper()
+    fun providesAddToDoDataToDomainMapper() = AddToDoDataToDomainMapper()
 
     @Provides
-    fun providesNewFeatureDataModelToDataSourceMapper() = NewFeatureDataModelToDataSourceMapper()
+    fun providesAddToDoDomainToDataMapper() = AddToDoDomainToDataMapper()
 
     @Provides
-    fun providesNewFeaturePresentationToDomainMapper() = NewFeaturePresentationToDomainMapper()
+    fun providesAddToDoPresentationToDomainMapper() = AddToDoPresentationToDomainMapper()
 
     @Provides
-    fun providesNewFeatureDomainToPresentationMapper() = NewFeatureDomainToPresentationMapper()
-
-    @Provides
-    @Singleton
-    fun provideNewFeatureDataSource(@ApplicationContext context: Context): NewFeatureDataSource {
-        return SharedPrefNewFeatureDataSource(context = context)
-    }
+    fun providesAddToDoDomainToPresentationMapper() = AddToDoDomainToPresentationMapper()
 
     @Provides
     @Singleton
-    fun provideNewFeatureRepository(
-        newFeatureDataSource: NewFeatureDataSource,
-        newFeatureDataModelToDomainMapper: NewFeatureDataModelToDomainMapper,
-        newFeatureDataModelToDataSourceMapper: NewFeatureDataModelToDataSourceMapper
-    ): NewFeatureRepository = NewFeatureRepositoryImpl(
-        newFeatureDataSource = newFeatureDataSource,
-        newFeatureDataModelToDomainMapper,
-        newFeatureDataModelToDataSourceMapper
+    fun provideAddToDoRepository(
+        addToDoDataSource: AddToDoDataSource,
+        addToDoDomainToDataMapper: AddToDoDomainToDataMapper,
+        addToDoDataToDomainMapper: AddToDoDataToDomainMapper,
+    ): AddToDoRepository = AddToDoRepositoryImpl(
+        addToDoDataSource = addToDoDataSource,
+        addToDoDomainToDataMapper,
+        addToDoDataToDomainMapper
     )
 }

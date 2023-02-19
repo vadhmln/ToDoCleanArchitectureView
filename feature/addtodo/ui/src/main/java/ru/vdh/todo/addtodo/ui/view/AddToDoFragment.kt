@@ -13,25 +13,22 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import dagger.hilt.android.AndroidEntryPoint
-import ru.vdh.todo.addtodo.presentation.model.NewFeaturePresentationNotification
-import ru.vdh.todo.addtodo.presentation.model.NewFeatureViewState
-import ru.vdh.todo.addtodo.presentation.viewmodel.NewFeatureViewModel
+import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationNotification
+import ru.vdh.todo.addtodo.presentation.model.AddToDoViewState
+import ru.vdh.todo.addtodo.presentation.viewmodel.AddToDoViewModel
 import ru.vdh.todo.addtodo.ui.R
 import ru.vdh.todo.addtodo.ui.databinding.FragmentAddTodoBinding
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
 import ru.vdh.todo.addtodo.ui.mapper.NewFeatureDestinationToUiMapper
-import ru.vdh.todo.addtodo.ui.mapper.NewUserNotificationPresentationToUiMapper
+import ru.vdh.todo.addtodo.ui.mapper.AddToDoNotificationPresentationToUiMapper
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AddToDoFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentationNotification>(),
-    NewFeatureViewsProvider {
+class AddToDoFragment : BaseFragment<AddToDoViewState, AddToDoPresentationNotification>(),
+    AddToDoViewsProvider {
 
     private var _binding: FragmentAddTodoBinding? = null
 
@@ -39,7 +36,7 @@ class AddToDoFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentation
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override val viewModel: NewFeatureViewModel by viewModels()
+    override val viewModel: AddToDoViewModel by viewModels()
 
     override val layoutResourceId = R.layout.fragment_add_todo
 
@@ -49,12 +46,12 @@ class AddToDoFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentation
 
     @Inject
     override lateinit var notificationMapper:
-            NewUserNotificationPresentationToUiMapper
+            AddToDoNotificationPresentationToUiMapper
 
     @Inject
     @JvmSuppressWildcards
     override lateinit var viewStateBinder:
-            ViewStateBinder<NewFeatureViewState, ViewsProvider>
+            ViewStateBinder<AddToDoViewState, ViewsProvider>
 
 
     override fun View.bindViews() {

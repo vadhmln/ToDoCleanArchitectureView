@@ -5,9 +5,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import ru.vdh.todo.core.domain.coroutine.CoroutineContextProvider
-import ru.vdh.todo.addtodo.domain.repository.NewFeatureRepository
-import ru.vdh.todo.addtodo.domain.usecase.GetNewFeatureUseCase
-import ru.vdh.todo.addtodo.domain.usecase.SaveNewFeatureUseCase
+import ru.vdh.todo.addtodo.domain.repository.AddToDoRepository
+import ru.vdh.todo.addtodo.domain.usecase.GetToDoListUseCase
+import ru.vdh.todo.addtodo.domain.usecase.AddToDoUseCase
 
 
 @Module
@@ -15,23 +15,23 @@ import ru.vdh.todo.addtodo.domain.usecase.SaveNewFeatureUseCase
 class AddToDoDomainModule {
 
     @Provides
-    fun provideGetNewFeatureUseCase(
-        newFeatureRepository: NewFeatureRepository,
+    fun provideGetToDoListUseCase(
+        addToDoRepository: AddToDoRepository,
         coroutineContextProvider: CoroutineContextProvider
-    ): GetNewFeatureUseCase =
-        GetNewFeatureUseCase(
-            newFeatureRepository = newFeatureRepository,
+    ): GetToDoListUseCase =
+        GetToDoListUseCase(
+            addToDoRepository = addToDoRepository,
             coroutineContextProvider = coroutineContextProvider
         )
 
 
     @Provides
-    fun provideSaveNewFeatureUseCase(
-        newFeatureRepository: NewFeatureRepository,
+    fun provideAddToDoUseCase(
+        addToDoRepository: AddToDoRepository,
         coroutineContextProvider: CoroutineContextProvider
-    ): SaveNewFeatureUseCase =
-        SaveNewFeatureUseCase(
-            newFeatureRepository = newFeatureRepository,
+    ): AddToDoUseCase =
+        AddToDoUseCase(
+            addToDoRepository = addToDoRepository,
             coroutineContextProvider = coroutineContextProvider
         )
 

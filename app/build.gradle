@@ -68,6 +68,8 @@ dependencies {
     implementation project(':feature:updatetodo:data')
     implementation project(':feature:updatetodo:datasource')
 
+    implementation project(':core:database-local')
+
     implementation(libs.bundles.android.core)
     implementation(libs.bundles.fragment)
     implementation(libs.kotlinx.coroutines.android)
@@ -75,7 +77,11 @@ dependencies {
 
     //Hilt
     implementation(libs.hilt.android)
-    kapt libs.hilt.compiler
+    implementation 'androidx.room:room-ktx:2.5.0'
+    kapt(libs.hilt.compiler)
+
+    //RecycleView animator
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
 
     implementation libs.androidx.junit.ktx
 
