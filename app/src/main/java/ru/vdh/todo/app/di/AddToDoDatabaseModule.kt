@@ -12,7 +12,13 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AddToDoDatabaseModule {
+object AddToDoDatabaseModule {
+
+//    @Provides
+//    @Singleton
+//    fun providesToDoDataBase(
+//        @ApplicationContext context: Context,
+//    ): ToDoDataBase = ToDoDataBase.getDatabase(context)
 
     @Provides
     @Singleton

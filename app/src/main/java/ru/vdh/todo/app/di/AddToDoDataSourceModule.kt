@@ -1,5 +1,6 @@
 package ru.vdh.todo.app.di
 
+import android.app.Application
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,12 +35,12 @@ class AddToDoDataSourceModule {
     fun provideAddToDoDataSource(
         dataToDataBaseMapper: DataToDataBaseMapper,
         dataBaseToDataMapper: DataBaseToDataMapper,
-        toDoDao: ToDoDao,
         converter: Converter,
+        toDoDao: ToDoDao,
     ): AddToDoDataSource = AddToDoDataSourceImpl(
         dataToDataBaseMapper,
         dataBaseToDataMapper,
+        converter,
         toDoDao,
-        converter
     )
 }

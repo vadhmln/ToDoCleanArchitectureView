@@ -8,12 +8,14 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationModel
 import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationNotification
 import ru.vdh.todo.addtodo.presentation.model.AddToDoViewState
 import ru.vdh.todo.addtodo.presentation.viewmodel.AddToDoViewModel
@@ -65,7 +67,13 @@ class AddToDoFragment : BaseFragment<AddToDoViewState, AddToDoPresentationNotifi
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
             return when (menuItem.itemId) {
                 R.id.menu_add -> {
-                    // AddToDoUseCase
+                    viewModel.onAddToDoAction(AddToDoPresentationModel(
+                        id = 0,
+                        title = binding.titleEditText.toString(),
+                        priority = binding.prioritiesSpinner.toString(),
+                        description = binding.descriptionEditText.toString()
+                    ))
+                    Toast.makeText(requireContext(), "Add button clicked!", Toast.LENGTH_SHORT).show()
                     true
                 }
                 else -> false

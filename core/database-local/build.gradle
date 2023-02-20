@@ -38,6 +38,7 @@ dependencies {
     //Lifecycle components
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.livedata)
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
     kapt(libs.androidx.lifecycle.compiler)
 
     //Room

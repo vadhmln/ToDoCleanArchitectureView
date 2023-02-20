@@ -20,7 +20,7 @@ abstract class ToDoDataBase: RoomDatabase() {
         @Volatile
         private var INSTANCE: ToDoDataBase? = null
 
-        fun getDataBase(context: Context): ToDoDataBase {
+        fun getDatabase(context: Context): ToDoDataBase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -36,4 +36,21 @@ abstract class ToDoDataBase: RoomDatabase() {
             }
         }
     }
+
+//    companion object {
+//        @Volatile
+//        private var INSTANCE: ToDoDataBase? = null
+//
+//        fun getDatabase(context: Context): ToDoDataBase =
+//            INSTANCE ?: synchronized(this) {
+//                INSTANCE
+//                    ?: buildDatabase(context).also { INSTANCE = it }
+//            }
+//
+//        private fun buildDatabase(context: Context) =
+//            Room.databaseBuilder(
+//                context.applicationContext,
+//                ToDoDataBase::class.java, "todo_database"
+//            ).build()
+//    }
 }
