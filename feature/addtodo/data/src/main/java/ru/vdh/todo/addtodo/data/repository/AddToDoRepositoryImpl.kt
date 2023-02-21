@@ -7,6 +7,7 @@ import ru.vdh.todo.addtodo.data.mapper.AddToDoDataToDomainMapper
 import ru.vdh.todo.addtodo.data.mapper.AddToDoDomainToDataMapper
 import ru.vdh.todo.addtodo.domain.model.AddToDoDomainModel
 import ru.vdh.todo.addtodo.domain.repository.AddToDoRepository
+import javax.inject.Inject
 
 class AddToDoRepositoryImpl(
     private val addToDoDataSource: AddToDoDataSource,
@@ -22,9 +23,10 @@ class AddToDoRepositoryImpl(
         }
     }
 
-    override fun addToDo(addToDoDomainModel: AddToDoDomainModel): Boolean {
+    override fun addToDo(addToDoDomainModel: AddToDoDomainModel) {
+//        addToDoDataSource.insert()
         val addToDoDataModel = addToDoDomainToDataMapper.toData(addToDoDomainModel)
-        return addToDoDataSource.addToDo(addToDoDataModel)
+        addToDoDataSource.addToDo(addToDoDataModel)
     }
 }
 

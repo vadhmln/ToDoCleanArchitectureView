@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt.android)
     id 'kotlin-kapt'
 }
 
@@ -45,6 +46,11 @@ dependencies {
     kapt(libs.room.compiler)
     implementation(libs.room.ktx)
     androidTestImplementation(libs.room.testing)
+
+    //Hilt
+    implementation(libs.hilt.android)
+    implementation 'androidx.room:room-ktx:2.5.0'
+    kapt(libs.hilt.compiler)
 
     implementation libs.androidx.junit.ktx
 }

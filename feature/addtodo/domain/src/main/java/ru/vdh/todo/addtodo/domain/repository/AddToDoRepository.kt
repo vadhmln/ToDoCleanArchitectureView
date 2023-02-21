@@ -7,6 +7,6 @@ interface AddToDoRepository {
 
     fun getAllData(): Flow<List<AddToDoDomainModel>>
 
-    fun addToDo(addToDoDomainModel: AddToDoDomainModel): Boolean
+    fun addToDo(addToDoDomainModel: AddToDoDomainModel)
 
 }

@@ -14,7 +14,10 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.Flow
+import ru.vdh.todo.NavGraphDirections
 import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationModel
 import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationNotification
 import ru.vdh.todo.addtodo.presentation.model.AddToDoViewState
@@ -55,9 +58,10 @@ class AddToDoFragment : BaseFragment<AddToDoViewState, AddToDoPresentationNotifi
     override lateinit var viewStateBinder:
             ViewStateBinder<AddToDoViewState, ViewsProvider>
 
-
     override fun View.bindViews() {
+
     }
+
 
     private val menuProvider = object : MenuProvider {
         override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -67,15 +71,9 @@ class AddToDoFragment : BaseFragment<AddToDoViewState, AddToDoPresentationNotifi
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
             return when (menuItem.itemId) {
                 R.id.menu_add -> {
-                    viewModel.onAddToDoAction(AddToDoPresentationModel(
-                        id = 0,
-                        title = binding.titleEditText.toString(),
-                        priority = binding.prioritiesSpinner.toString(),
-                        description = binding.descriptionEditText.toString()
-                    ))
-                    Toast.makeText(requireContext(), "Add button clicked!", Toast.LENGTH_SHORT).show()
-                    true
+                    TODO()
                 }
+
                 else -> false
             }
         }
@@ -104,9 +102,56 @@ class AddToDoFragment : BaseFragment<AddToDoViewState, AddToDoPresentationNotifi
 
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
+//        val menuHost: MenuHost = requireActivity()
+//        menuHost.addMenuProvider(menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.add_todo_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.menu_add -> {
+                        insertDataToDb()
+                        true
+                    }
+
+                    android.R.id.home -> {
+                        requireActivity().onBackPressedDispatcher.onBackPressed()
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+    }
+
+    private fun insertDataToDb() {
+        val mTitle = binding.titleEditText.text.toString()
+        val mPriority = binding.prioritiesSpinner.selectedItem.toString()
+        val mDescription = binding.descriptionEditText.text.toString()
+
+        val validation = viewModel.verifyDataFromUser(mTitle, mDescription)
+        if (validation) {
+            // Insert Data to Database
+            val newData = AddToDoPresentationModel(
+                0,
+                mTitle,
+                mPriority,
+                mDescription
+            )
+            viewModel.onAddToDoAction(newData)
+            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
+            // Navigate Back
+            findNavController().navigate(NavGraphDirections.actionGlobalToNavTodoList())
+        } else {
+            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 
     override fun onDestroyView() {

@@ -77,8 +77,14 @@ dependencies {
 
     //Hilt
     implementation(libs.hilt.android)
-    implementation 'androidx.room:room-ktx:2.5.0'
     kapt(libs.hilt.compiler)
+
+    //Room
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
+//    implementation libs.hilt.lifecycle.viewmodel
+    androidTestImplementation(libs.room.testing)
 
     //RecycleView animator
     implementation 'jp.wasabeef:recyclerview-animators:4.0.2'

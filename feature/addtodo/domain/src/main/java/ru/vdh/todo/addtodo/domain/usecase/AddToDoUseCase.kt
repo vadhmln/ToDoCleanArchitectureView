@@ -7,11 +7,11 @@ import ru.vdh.todo.addtodo.domain.repository.AddToDoRepository
 
 class AddToDoUseCase(
     private val addToDoRepository: AddToDoRepository,
-    private val coroutineContextProvider: CoroutineContextProvider
-) : BackgroundExecutingUseCase<AddToDoDomainModel, Boolean>(coroutineContextProvider) {
+    coroutineContextProvider: CoroutineContextProvider
+) : BackgroundExecutingUseCase<AddToDoDomainModel, Unit>(coroutineContextProvider) {
 
-    override fun executeInBackground(request: AddToDoDomainModel): Boolean {
-        return addToDoRepository.addToDo(addToDoDomainModel = request)
+    override fun executeInBackground(request: AddToDoDomainModel) {
+        addToDoRepository.addToDo(addToDoDomainModel = request)
     }
 }
 

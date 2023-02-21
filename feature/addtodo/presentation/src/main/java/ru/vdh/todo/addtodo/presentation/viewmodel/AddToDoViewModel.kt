@@ -3,8 +3,10 @@ package ru.vdh.todo.addtodo.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import ru.vdh.todo.addtodo.domain.model.AddToDoDomainModel
 import ru.vdh.todo.addtodo.domain.usecase.GetToDoListUseCase
 import ru.vdh.todo.addtodo.domain.usecase.AddToDoUseCase
@@ -43,10 +45,15 @@ class AddToDoViewModel @Inject constructor(
 
     fun onAddToDoAction(addToDoPresentationModel: AddToDoPresentationModel) {
         updateViewState(AddToDoViewState::loading)
-        val domainToDo =
-            addToDoPresentationToDomainMapper.toDomain(addToDoPresentationModel)
+        val domainToDo = addToDoPresentationToDomainMapper.toDomain(addToDoPresentationModel)
         execute(addToDoUseCase, domainToDo)
     }
+
+    fun verifyDataFromUser(title: String, description: String): Boolean {
+        return !(title.isEmpty() || description.isEmpty())
+    }
+
+
 
     fun getAllToDoList(request: Flow<List<AddToDoDomainModel>>) {
 //        val toDoDetails = addToDoDomainToPresentationMapper

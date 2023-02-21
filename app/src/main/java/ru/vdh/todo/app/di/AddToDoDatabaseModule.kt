@@ -8,11 +8,15 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ru.vdh.todo.database_local.ToDoDataBase
+import ru.vdh.todo.database_local.dao.ToDoDao
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AddToDoDatabaseModule {
+
+    @Provides
+    fun providesToDoDao(toDoDataBase: ToDoDataBase,): ToDoDao = toDoDataBase.toDoDao()
 
 //    @Provides
 //    @Singleton

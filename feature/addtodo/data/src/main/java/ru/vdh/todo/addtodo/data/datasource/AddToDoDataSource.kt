@@ -7,5 +7,5 @@ interface AddToDoDataSource {
 
     fun getAllData(): Flow<List<AddToDoDataModel>>
 
-    fun addToDo(addToDoDataModel: AddToDoDataModel): Boolean
+    fun addToDo(addToDoDataModel: AddToDoDataModel)
 }
