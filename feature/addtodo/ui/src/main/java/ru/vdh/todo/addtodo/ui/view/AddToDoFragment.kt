@@ -16,7 +16,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.Flow
 import ru.vdh.todo.NavGraphDirections
 import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationModel
 import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationNotification
@@ -24,11 +23,11 @@ import ru.vdh.todo.addtodo.presentation.model.AddToDoViewState
 import ru.vdh.todo.addtodo.presentation.viewmodel.AddToDoViewModel
 import ru.vdh.todo.addtodo.ui.R
 import ru.vdh.todo.addtodo.ui.databinding.FragmentAddTodoBinding
+import ru.vdh.todo.addtodo.ui.mapper.AddToDoNotificationPresentationToUiMapper
+import ru.vdh.todo.addtodo.ui.mapper.NewFeatureDestinationToUiMapper
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
-import ru.vdh.todo.addtodo.ui.mapper.NewFeatureDestinationToUiMapper
-import ru.vdh.todo.addtodo.ui.mapper.AddToDoNotificationPresentationToUiMapper
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -62,23 +61,6 @@ class AddToDoFragment : BaseFragment<AddToDoViewState, AddToDoPresentationNotifi
 
     }
 
-
-    private val menuProvider = object : MenuProvider {
-        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            menuInflater.inflate(R.menu.add_todo_menu, menu)
-        }
-
-        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-            return when (menuItem.itemId) {
-                R.id.menu_add -> {
-                    TODO()
-                }
-
-                else -> false
-            }
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -93,6 +75,8 @@ class AddToDoFragment : BaseFragment<AddToDoViewState, AddToDoPresentationNotifi
         }
 
         _binding = FragmentAddTodoBinding.inflate(inflater, container, false)
+
+        binding.prioritiesSpinner.onItemSelectedListener = viewModel.listener
 
         return binding.root
     }

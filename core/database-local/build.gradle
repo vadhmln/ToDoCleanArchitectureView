@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -40,6 +42,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata)
     implementation 'androidx.test.ext:junit-ktx:1.1.5'
     kapt(libs.androidx.lifecycle.compiler)
+    implementation libs.kotlin.stdlib
 
     //Room
     implementation(libs.room.runtime)

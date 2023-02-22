@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id 'kotlin-kapt'
 }
 
 android {
@@ -34,6 +35,12 @@ dependencies {
     implementation project(':feature:todolist:domain')
 
     implementation(libs.androidx.core)
+
+    //Lifecycle components
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.livedata)
+    kapt(libs.androidx.lifecycle.compiler)
+
     implementation(libs.bundles.testImplementation)
     implementation(libs.bundles.androidTestImplementation)
 }

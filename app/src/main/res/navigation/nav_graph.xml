@@ -8,18 +8,15 @@
 
     <include
         android:id="@id/nav_todo_list"
-        app:graph="@navigation/nav_todo_list">
-    </include>
+        app:graph="@navigation/nav_todo_list" />
 
     <include
         android:id="@id/nav_add_todo"
-        app:graph="@navigation/nav_add_todo">
-    </include>
+        app:graph="@navigation/nav_add_todo" />
 
     <include
         android:id="@id/nav_update_todo"
-        app:graph="@navigation/nav_update_todo">
-    </include>
+        app:graph="@navigation/nav_update_todo" />
 
     <action
         android:id="@+id/action_global_to_nav_todo_list"
@@ -41,7 +38,11 @@
         app:enterAnim="@anim/from_left"
         app:exitAnim="@anim/to_right"
         app:popEnterAnim="@anim/from_right"
-        app:popExitAnim="@anim/to_left" />
+        app:popExitAnim="@anim/to_left">
+        <argument
+            android:name="currentItem"
+            app:argType="ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel" />
+    </action>
 
 
 </navigation>

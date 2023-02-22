@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'ru.vdh.cleanarch.core.presentation'
+    namespace 'ru.vdh.todo.core.presentation'
     compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {

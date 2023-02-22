@@ -1,12 +1,14 @@
 package ru.vdh.todo.updatetodo.presentation.mapper
 
-import ru.vdh.todo.updatetodo.domain.model.NewFeatureDomainModel
-import ru.vdh.todo.updatetodo.presentation.model.NewFeaturePresentationModel
+import ru.vdh.todo.updatetodo.domain.model.UpdateToDoDomainModel
+import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationModel
 
 class NewFeaturePresentationToDomainMapper {
-    fun toDomain(newUser: NewFeaturePresentationModel) =
-        NewFeatureDomainModel(
-            firstName = newUser.firstName,
-            lastName = newUser.lastName
+    fun toDomain(updateToDoPresentationModel: UpdateToDoPresentationModel) =
+        UpdateToDoDomainModel(
+            id = updateToDoPresentationModel.id,
+            title = updateToDoPresentationModel.title,
+            priority = updateToDoPresentationModel.priority,
+            description = updateToDoPresentationModel.description
         )
 }

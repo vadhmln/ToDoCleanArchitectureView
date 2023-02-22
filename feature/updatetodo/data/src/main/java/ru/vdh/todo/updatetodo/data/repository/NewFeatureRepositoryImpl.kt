@@ -1,26 +1,17 @@
 package ru.vdh.todo.updatetodo.data.repository
 
-import ru.vdh.todo.updatetodo.data.datasource.NewFeatureDataSource
-import ru.vdh.todo.updatetodo.data.mapper.NewFeatureDataModelToDataSourceMapper
-import ru.vdh.todo.updatetodo.data.mapper.NewFeatureDataModelToDomainMapper
-import ru.vdh.todo.updatetodo.domain.model.NewFeatureDomainModel
+import ru.vdh.todo.updatetodo.data.datasource.UpdateToDoDataSource
+import ru.vdh.todo.updatetodo.data.mapper.UpdateToDoDataModelToDataSourceMapper
+import ru.vdh.todo.updatetodo.data.mapper.UpdateToDoDataModelToDomainMapper
 import ru.vdh.todo.updatetodo.domain.repository.NewFeatureRepository
 
 class NewFeatureRepositoryImpl(
-    private val newFeatureDataSource: NewFeatureDataSource,
-    private val newFeatureDataModelToDomainMapper: NewFeatureDataModelToDomainMapper,
-    private val newFeatureDataModelToDataSourceMapper: NewFeatureDataModelToDataSourceMapper
+    private val updateToDoDataSource: UpdateToDoDataSource,
+    private val updateToDoDataModelToDomainMapper: UpdateToDoDataModelToDomainMapper,
+    private val updateToDoDataModelToDataSourceMapper: UpdateToDoDataModelToDataSourceMapper
 ) : NewFeatureRepository {
 
-    override fun save(newFeature: NewFeatureDomainModel): Boolean {
-        val user = newFeatureDataModelToDataSourceMapper.toDataSource(newFeature)
-        return newFeatureDataSource.save(user)
-    }
 
-    override fun get(): NewFeatureDomainModel {
-        val user = newFeatureDataSource.get()
-        return newFeatureDataModelToDomainMapper.toDomain(user)
-    }
 }
 
 

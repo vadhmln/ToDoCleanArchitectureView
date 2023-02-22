@@ -34,10 +34,8 @@ class AddToDoDataModule {
     fun provideAddToDoRepository(
         addToDoDataSource: AddToDoDataSource,
         addToDoDomainToDataMapper: AddToDoDomainToDataMapper,
-        addToDoDataToDomainMapper: AddToDoDataToDomainMapper,
     ): AddToDoRepository = AddToDoRepositoryImpl(
         addToDoDataSource = addToDoDataSource,
-        addToDoDomainToDataMapper,
-        addToDoDataToDomainMapper
+        addToDoDomainToDataMapper
     )
 }

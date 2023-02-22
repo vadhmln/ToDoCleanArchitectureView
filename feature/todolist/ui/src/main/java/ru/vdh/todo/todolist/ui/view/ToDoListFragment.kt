@@ -2,7 +2,6 @@ package ru.vdh.todo.todolist.ui.view
 
 import android.os.Bundle
 import android.util.Log
-import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,6 +13,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ru.vdh.todo.NavGraphDirections
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
@@ -21,8 +21,9 @@ import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
 import ru.vdh.todo.todolist.presentation.model.NewFeaturePresentationNotification
 import ru.vdh.todo.todolist.presentation.model.NewFeatureViewState
-import ru.vdh.todo.todolist.presentation.viewmodel.NewFeatureViewModel
+import ru.vdh.todo.todolist.presentation.viewmodel.ToDoListViewModel
 import ru.vdh.todo.todolist.ui.R
+import ru.vdh.todo.todolist.ui.adapter.ListAdapter
 import ru.vdh.todo.todolist.ui.databinding.FragmentListTodoBinding
 import ru.vdh.todo.todolist.ui.mapper.NewFeatureDestinationToUiMapper
 import ru.vdh.todo.todolist.ui.mapper.NewUserNotificationPresentationToUiMapper
@@ -38,9 +39,11 @@ class ToDoListFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentatio
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override val viewModel: NewFeatureViewModel by viewModels()
+    override val viewModel: ToDoListViewModel by viewModels()
 
     override val layoutResourceId = R.layout.fragment_list_todo
+
+    private val adapter: ListAdapter by lazy { ListAdapter() }
 
     @Inject
     override lateinit var destinationMapper:
@@ -74,6 +77,15 @@ class ToDoListFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentatio
 
         _binding = FragmentListTodoBinding.inflate(inflater, container, false)
 
+        setupRecyclerview()
+
+        // Observe LiveData
+        viewModel.getAllPresentationData.observe(viewLifecycleOwner) { data ->
+            viewModel.checkIfDatabaseEmpty(data)
+            adapter.setData(data)
+            binding.recyclerView.scheduleLayoutAnimation()
+        }
+
         return binding.root
     }
 
@@ -84,9 +96,6 @@ class ToDoListFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentatio
             findNavController().navigate(NavGraphDirections.actionGlobalToNavAddTodo())
         }
 
-        binding.listLayout.setOnClickListener {
-            findNavController().navigate(NavGraphDirections.actionGlobalToNavUpdateTodo())
-        }
 
         // The usage of an interface lets you inject your own implementation
         val menuHost: MenuHost = requireActivity()
@@ -107,6 +116,42 @@ class ToDoListFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentatio
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
+
+    private fun setupRecyclerview() {
+        val recyclerView = binding.recyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+        // Swipe to Delete
+//        swipeToDelete(recyclerView)
+    }
+
+//    private fun swipeToDelete(recyclerView: RecyclerView) {
+//        val swipeToDeleteCallback = object : SwipeToDelete() {
+//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                val deletedItem = adapter.dataList[viewHolder.adapterPosition]
+//                // Delete Item
+//                viewModel.deleteItem(deletedItem)
+//                adapter.notifyItemRemoved(viewHolder.adapterPosition)
+//                // Restore Deleted Item
+//                restoreDeletedData(viewHolder.itemView, deletedItem)
+//            }
+//        }
+//        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+//        itemTouchHelper.attachToRecyclerView(recyclerView)
+//    }
+//
+//    private fun restoreDeletedData(view: View, deletedItem: ToDoData) {
+//        val snackBar = Snackbar.make(
+//            view, "Deleted '${deletedItem.title}'",
+//            Snackbar.LENGTH_LONG
+//        )
+//        snackBar.setAction("Undo") {
+//            mToDoViewModel.insertData(deletedItem)
+//        }
+//        snackBar.show()
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

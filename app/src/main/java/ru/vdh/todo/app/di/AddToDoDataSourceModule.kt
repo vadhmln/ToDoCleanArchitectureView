@@ -6,8 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.vdh.todo.addtodo.data.datasource.AddToDoDataSource
 import ru.vdh.todo.addtodo.datasource.AddToDoDataSourceImpl
-import ru.vdh.todo.addtodo.datasource.mapper.DataBaseToDataMapper
-import ru.vdh.todo.addtodo.datasource.mapper.DataToDataBaseMapper
+import ru.vdh.todo.addtodo.datasource.mapper.AddToDoDataToDataBaseMapper
+import ru.vdh.todo.addtodo.datasource.mapper.DataBaseToAddToDoDataMapper
 import ru.vdh.todo.database_local.dao.ToDoDao
 import ru.vdh.todo.database_local.util.Converter
 import javax.inject.Singleton
@@ -17,10 +17,10 @@ import javax.inject.Singleton
 class AddToDoDataSourceModule {
 
     @Provides
-    fun providesDataBaseToDataMapper() = DataBaseToDataMapper()
+    fun providesDataBaseToAddToDoDataMapper() = DataBaseToAddToDoDataMapper()
 
     @Provides
-    fun providesDataToDataBaseMapper() = DataToDataBaseMapper()
+    fun providesDataToDataBaseMapper() = AddToDoDataToDataBaseMapper()
 
     @Provides
     fun providesConverter() = Converter()
@@ -28,14 +28,10 @@ class AddToDoDataSourceModule {
     @Provides
     @Singleton
     fun provideAddToDoDataSource(
-        dataToDataBaseMapper: DataToDataBaseMapper,
-        dataBaseToDataMapper: DataBaseToDataMapper,
-        converter: Converter,
+        addToDoDataToDataBaseMapper: AddToDoDataToDataBaseMapper,
         toDoDao: ToDoDao,
     ): AddToDoDataSource = AddToDoDataSourceImpl(
-        dataToDataBaseMapper,
-        dataBaseToDataMapper,
-        converter,
+        addToDoDataToDataBaseMapper,
         toDoDao,
     )
 }

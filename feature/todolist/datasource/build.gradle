@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt.android)
+    id 'kotlin-kapt'
 }
 
 android {
@@ -32,6 +34,23 @@ android {
 
 dependencies {
     implementation project(':feature:todolist:data')
+    implementation project(':core:database-local')
+
+    //Lifecycle components
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.livedata)
+    kapt(libs.androidx.lifecycle.compiler)
+
+    //Room
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
+    androidTestImplementation(libs.room.testing)
+
+    //Hilt
+    implementation(libs.hilt.android)
+    implementation 'androidx.room:room-ktx:2.5.0'
+    kapt(libs.hilt.compiler)
 
     implementation libs.androidx.junit.ktx
 }

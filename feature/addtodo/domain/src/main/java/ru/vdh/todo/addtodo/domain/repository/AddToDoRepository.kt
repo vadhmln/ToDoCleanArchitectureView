@@ -5,8 +5,5 @@ import ru.vdh.todo.addtodo.domain.model.AddToDoDomainModel
 
 interface AddToDoRepository {
 
-    fun getAllData(): Flow<List<AddToDoDomainModel>>
-
     fun addToDo(addToDoDomainModel: AddToDoDomainModel)
-
 }

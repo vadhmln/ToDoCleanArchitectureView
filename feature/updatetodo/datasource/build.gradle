@@ -34,4 +34,5 @@ dependencies {
     implementation project(':feature:updatetodo:data')
 
     implementation libs.androidx.junit.ktx
+    implementation project(path: ':core:database-local')
 }

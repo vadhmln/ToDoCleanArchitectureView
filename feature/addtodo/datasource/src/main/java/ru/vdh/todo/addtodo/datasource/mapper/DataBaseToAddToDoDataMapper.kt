@@ -4,7 +4,7 @@ import ru.vdh.todo.addtodo.data.model.AddToDoDataModel
 import ru.vdh.todo.database_local.model.ToDoLocalDataBaseModel
 import ru.vdh.todo.database_local.util.Converter
 
-class DataBaseToDataMapper {
+class DataBaseToAddToDoDataMapper {
 
     fun toData(
         input: ToDoLocalDataBaseModel,

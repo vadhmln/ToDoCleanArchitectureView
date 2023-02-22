@@ -1,19 +1,18 @@
 package ru.vdh.todo.app.di
 
-import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ru.vdh.todo.todolist.data.datasource.NewFeatureDataSource
-import ru.vdh.todo.todolist.data.mapper.NewFeatureDataModelToDataSourceMapper
-import ru.vdh.todo.todolist.data.mapper.NewFeatureDataModelToDomainMapper
-import ru.vdh.todo.todolist.data.repository.NewFeatureRepositoryImpl
-import ru.vdh.todo.todolist.datasource.SharedPrefNewFeatureDataSource
-import ru.vdh.todo.todolist.domain.repository.NewFeatureRepository
-import ru.vdh.todo.todolist.presentation.mapper.NewFeatureDomainToPresentationMapper
-import ru.vdh.todo.todolist.presentation.mapper.NewFeaturePresentationToDomainMapper
+import ru.vdh.todo.todolist.data.datasource.ToDoListDataSource
+import ru.vdh.todo.todolist.data.mapper.ToDoListDataToDomainMapper
+import ru.vdh.todo.todolist.data.mapper.ToDoListDomainToDataMapper
+import ru.vdh.todo.todolist.data.repository.ToDoListRepositoryImpl
+import ru.vdh.todo.todolist.datasource.mapper.DataBaseToToDoListDataMapper
+import ru.vdh.todo.todolist.datasource.mapper.ToDoListDataToDataBaseMapper
+import ru.vdh.todo.todolist.domain.repository.ToDoListRepository
+import ru.vdh.todo.todolist.presentation.mapper.ToDoListDomainToPresentationMapper
+import ru.vdh.todo.todolist.presentation.mapper.ToDoListPresentationToDomainMapper
 import javax.inject.Singleton
 
 @Module
@@ -21,32 +20,24 @@ import javax.inject.Singleton
 class ToDoListDataModule {
 
     @Provides
-    fun providesNewFeatureDataModelToDomainMapper() = NewFeatureDataModelToDomainMapper()
+    fun providesToDoListDataToDomainMapper() = ToDoListDataToDomainMapper()
 
     @Provides
-    fun providesNewFeatureDataModelToDataSourceMapper() = NewFeatureDataModelToDataSourceMapper()
+    fun providesToDoListDomainToDataMapper() = ToDoListDomainToDataMapper()
 
     @Provides
-    fun providesNewFeaturePresentationToDomainMapper() = NewFeaturePresentationToDomainMapper()
+    fun providesToDoListPresentationToDomainMapper() = ToDoListPresentationToDomainMapper()
 
     @Provides
-    fun providesNewFeatureDomainToPresentationMapper() = NewFeatureDomainToPresentationMapper()
-
-    @Provides
-    @Singleton
-    fun provideNewFeatureDataSource(@ApplicationContext context: Context): NewFeatureDataSource {
-        return SharedPrefNewFeatureDataSource(context = context)
-    }
+    fun providesToDoListDomainToPresentationMapper() = ToDoListDomainToPresentationMapper()
 
     @Provides
     @Singleton
-    fun provideNewFeatureRepository(
-        newFeatureDataSource: NewFeatureDataSource,
-        newFeatureDataModelToDomainMapper: NewFeatureDataModelToDomainMapper,
-        newFeatureDataModelToDataSourceMapper: NewFeatureDataModelToDataSourceMapper
-    ): NewFeatureRepository = NewFeatureRepositoryImpl(
-        newFeatureDataSource = newFeatureDataSource,
-        newFeatureDataModelToDomainMapper,
-        newFeatureDataModelToDataSourceMapper
+    fun provideToDoListRepository(
+        toDoListDataSource: ToDoListDataSource,
+        toDoListDataToDomainMapper: ToDoListDataToDomainMapper,
+    ): ToDoListRepository = ToDoListRepositoryImpl(
+        toDoListDataSource = toDoListDataSource,
+        toDoListDataToDomainMapper
     )
 }

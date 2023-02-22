@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt.android)
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -38,6 +39,7 @@ dependencies {
     implementation project(':feature:todolist:domain')
 
     implementation(libs.bundles.testImplementation)
+    implementation(libs.bundles.lifecycle)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.livedata)
     implementation(libs.androidx.lifecycle.viewmodel)

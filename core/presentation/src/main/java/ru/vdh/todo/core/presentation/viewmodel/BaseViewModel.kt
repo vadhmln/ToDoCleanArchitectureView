@@ -1,5 +1,10 @@
 package ru.vdh.todo.core.presentation.viewmodel
 
+import android.app.Application
+import android.view.View
+import android.widget.AdapterView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,9 +14,11 @@ import ru.vdh.todo.core.presentation.viewmodel.livedata.SingleLiveEvent
 import ru.vdh.todo.core.presentation.viewmodel.usecase.UseCaseExecutorProvider
 import ru.vdh.todo.core.domain.exception.DomainException
 import ru.vdh.todo.core.domain.usecase.UseCase
+import ru.vdh.todo.core.presentation.R
 
 abstract class BaseViewModel<VIEW_STATE : Any, NOTIFICATION : Any>(
-    useCaseExecutorProvider: UseCaseExecutorProvider
+    useCaseExecutorProvider: UseCaseExecutorProvider,
+    application: Application
 ) : ViewModel() {
     private val _viewState = MutableLiveData<VIEW_STATE>()
         .apply { value = initialState() }
@@ -68,4 +75,27 @@ abstract class BaseViewModel<VIEW_STATE : Any, NOTIFICATION : Any>(
     }
 
     private fun <T> LiveData<T>.asLiveData() = this
+
+    /** Add/Update Fragment */
+
+    val listener: AdapterView.OnItemSelectedListener = object :
+        AdapterView.OnItemSelectedListener{
+        override fun onNothingSelected(p0: AdapterView<*>?) {}
+        override fun onItemSelected(
+            parent: AdapterView<*>?,
+            view: View?,
+            position: Int,
+            id: Long
+        ) {
+            when(position){
+                0 -> { (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.red)) }
+                1 -> { (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.yellow)) }
+                2 -> { (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.green)) }
+            }
+        }
+    }
+
+    fun verifyDataFromUser(title: String, description: String): Boolean {
+        return !(title.isEmpty() || description.isEmpty())
+    }
 }

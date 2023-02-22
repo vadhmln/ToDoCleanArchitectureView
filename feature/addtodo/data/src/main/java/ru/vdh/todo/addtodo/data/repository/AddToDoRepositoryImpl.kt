@@ -12,16 +12,7 @@ import javax.inject.Inject
 class AddToDoRepositoryImpl(
     private val addToDoDataSource: AddToDoDataSource,
     private val addToDoDomainToDataMapper: AddToDoDomainToDataMapper,
-    private val addToDoDataToDomainMapper: AddToDoDataToDomainMapper,
 ) : AddToDoRepository {
-
-    override fun getAllData(): Flow<List<AddToDoDomainModel>> {
-        return addToDoDataSource.getAllData().map { it ->
-            it.map {
-                addToDoDataToDomainMapper.toDomain(it)
-            }
-        }
-    }
 
     override fun addToDo(addToDoDomainModel: AddToDoDomainModel) {
 //        addToDoDataSource.insert()
