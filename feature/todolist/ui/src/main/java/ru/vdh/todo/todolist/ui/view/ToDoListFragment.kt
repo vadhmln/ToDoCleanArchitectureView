@@ -19,19 +19,19 @@ import ru.vdh.todo.NavGraphDirections
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
-import ru.vdh.todo.todolist.presentation.model.NewFeaturePresentationNotification
-import ru.vdh.todo.todolist.presentation.model.NewFeatureViewState
+import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationNotification
+import ru.vdh.todo.todolist.presentation.model.ToDoListViewState
 import ru.vdh.todo.todolist.presentation.viewmodel.ToDoListViewModel
 import ru.vdh.todo.todolist.ui.R
-import ru.vdh.todo.todolist.ui.adapter.ListAdapter
+import ru.vdh.todo.todolist.ui.adapter.ToDoListAdapter
 import ru.vdh.todo.todolist.ui.databinding.FragmentListTodoBinding
-import ru.vdh.todo.todolist.ui.mapper.NewFeatureDestinationToUiMapper
-import ru.vdh.todo.todolist.ui.mapper.NewUserNotificationPresentationToUiMapper
+import ru.vdh.todo.todolist.ui.mapper.ToDoListDestinationToUiMapper
+import ru.vdh.todo.todolist.ui.mapper.ToDoListNotificationPresentationToUiMapper
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ToDoListFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentationNotification>(),
-    NewFeatureViewsProvider {
+class ToDoListFragment : BaseFragment<ToDoListViewState, ToDoListPresentationNotification>(),
+    ToDoListViewsProvider {
 
     private var _binding: FragmentListTodoBinding? = null
 
@@ -43,20 +43,20 @@ class ToDoListFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentatio
 
     override val layoutResourceId = R.layout.fragment_list_todo
 
-    private val adapter: ListAdapter by lazy { ListAdapter() }
+    private val adapter: ToDoListAdapter by lazy { ToDoListAdapter() }
 
     @Inject
     override lateinit var destinationMapper:
-            NewFeatureDestinationToUiMapper
+            ToDoListDestinationToUiMapper
 
     @Inject
     override lateinit var notificationMapper:
-            NewUserNotificationPresentationToUiMapper
+            ToDoListNotificationPresentationToUiMapper
 
     @Inject
     @JvmSuppressWildcards
     override lateinit var viewStateBinder:
-            ViewStateBinder<NewFeatureViewState, ViewsProvider>
+            ViewStateBinder<ToDoListViewState, ViewsProvider>
 
 
     override fun View.bindViews() {

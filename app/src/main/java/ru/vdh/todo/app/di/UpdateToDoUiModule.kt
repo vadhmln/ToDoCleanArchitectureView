@@ -6,9 +6,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.ViewsProvider
-import ru.vdh.todo.updatetodo.presentation.model.NewFeatureViewState
-import ru.vdh.todo.updatetodo.ui.binder.NewFeatureViewStateBinder
-import ru.vdh.todo.updatetodo.ui.mapper.NewUserNotificationPresentationToUiMapper
+import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoViewState
+import ru.vdh.todo.updatetodo.ui.binder.UpdateToDoViewStateBinder
+import ru.vdh.todo.updatetodo.ui.mapper.UpdateToDoNotificationPresentationToUiMapper
 
 
 @Module
@@ -17,10 +17,10 @@ class UpdateToDoUiModule {
 
     @Provides
     @Suppress("UNCHECKED_CAST")
-    fun providesUserDetailsViewStateBinder() = NewFeatureViewStateBinder()
-            as ViewStateBinder<NewFeatureViewState, ViewsProvider>
+    fun providesUserDetailsViewStateBinder() = UpdateToDoViewStateBinder()
+            as ViewStateBinder<UpdateToDoViewState, ViewsProvider>
 
     @Provides
     fun providesNewUserNotificationPresentationToUiMapper() =
-        NewUserNotificationPresentationToUiMapper()
+        UpdateToDoNotificationPresentationToUiMapper()
 }

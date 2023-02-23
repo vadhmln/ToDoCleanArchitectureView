@@ -1,6 +1,6 @@
-package ru.vdh.todo.updatetodo.presentation.model
+package ru.vdh.todo.todolist.presentation.model
 
-data class NewFeatureViewState(
+data class ToDoListViewState(
     val saveResult: Boolean = false,
     val firstName: String = "",
     val lastName: String = ""

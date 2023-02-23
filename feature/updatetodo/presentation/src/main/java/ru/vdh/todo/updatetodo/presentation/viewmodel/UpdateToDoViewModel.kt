@@ -2,34 +2,29 @@ package ru.vdh.todo.updatetodo.presentation.viewmodel
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.vdh.todo.core.presentation.viewmodel.BaseViewModel
 import ru.vdh.todo.core.presentation.viewmodel.usecase.UseCaseExecutorProvider
-import ru.vdh.todo.updatetodo.domain.usecase.GetNewFeatureUseCase
+import ru.vdh.todo.updatetodo.domain.usecase.UpdateToDoUseCase
 import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoDomainToPresentationMapper
-import ru.vdh.todo.updatetodo.presentation.mapper.NewFeaturePresentationToDomainMapper
-import ru.vdh.todo.updatetodo.presentation.model.NewFeaturePresentationNotification
-import ru.vdh.todo.updatetodo.presentation.model.NewFeatureViewState
+import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoPresentationToDomainMapper
+import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationNotification
+import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoViewState
 import javax.inject.Inject
 
 @HiltViewModel
 class UpdateToDoViewModel @Inject constructor(
-    private val getNewFeatureUseCase: GetNewFeatureUseCase,
-    private val newFeaturePresentationToDomainMapper: NewFeaturePresentationToDomainMapper,
+    private val updateToDoUseCase: UpdateToDoUseCase,
+    private val updateToDoPresentationToDomainMapper: UpdateToDoPresentationToDomainMapper,
     private val updateToDoDomainToPresentationMapper: UpdateToDoDomainToPresentationMapper,
     useCaseExecutorProvider: UseCaseExecutorProvider,
     application: Application
-) : BaseViewModel<NewFeatureViewState, NewFeaturePresentationNotification>(
+) : BaseViewModel<UpdateToDoViewState, UpdateToDoPresentationNotification>(
     useCaseExecutorProvider,
     application
 ) {
 
-    override fun initialState() = NewFeatureViewState()
-
-    private val resultMutableLiveData = MutableLiveData<String>()
-    val resultLiveData: LiveData<String> = resultMutableLiveData
+    override fun initialState() = UpdateToDoViewState()
 
     init {
         Log.e("AAA", "UserDetailsViewModel created!!!")

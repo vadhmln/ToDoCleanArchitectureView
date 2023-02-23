@@ -39,18 +39,18 @@ class NavigationModule {
     @Provides
     fun providesAppToDoListDestinationToUiMapper(
         globalDestinationToUiMapper: GlobalDestinationToUiMapper
-    ): ru.vdh.todo.todolist.ui.mapper.NewFeatureDestinationToUiMapper =
+    ): ru.vdh.todo.todolist.ui.mapper.ToDoListDestinationToUiMapper =
         AppToDoListDestinationToUiMapper(globalDestinationToUiMapper)
 
     @Provides
     fun providesAppAddToDoDestinationToUiMapper(
         globalDestinationToUiMapper: GlobalDestinationToUiMapper
-    ): ru.vdh.todo.addtodo.ui.mapper.NewFeatureDestinationToUiMapper =
+    ): ru.vdh.todo.addtodo.ui.mapper.AddToDoDestinationToUiMapper =
         AppAddToDoDestinationToUiMapper(globalDestinationToUiMapper)
 
     @Provides
     fun providesAppUpdateToDoDestinationToUiMapper(
         globalDestinationToUiMapper: GlobalDestinationToUiMapper
-    ): ru.vdh.todo.updatetodo.ui.mapper.NewFeatureDestinationToUiMapper =
+    ): ru.vdh.todo.updatetodo.ui.mapper.UpdateToDoDestinationToUiMapper =
         AppUpdateToDoDestinationToUiMapper(globalDestinationToUiMapper)
 }

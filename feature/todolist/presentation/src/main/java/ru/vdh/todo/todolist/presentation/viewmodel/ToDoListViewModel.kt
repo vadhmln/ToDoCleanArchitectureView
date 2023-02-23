@@ -14,8 +14,8 @@ import ru.vdh.todo.core.presentation.viewmodel.usecase.UseCaseExecutorProvider
 import ru.vdh.todo.todolist.domain.model.ToDoListDomainModel
 import ru.vdh.todo.todolist.domain.usecase.GetToDoListUseCase
 import ru.vdh.todo.todolist.presentation.mapper.ToDoListDomainToPresentationMapper
-import ru.vdh.todo.todolist.presentation.model.NewFeaturePresentationNotification
-import ru.vdh.todo.todolist.presentation.model.NewFeatureViewState
+import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationNotification
+import ru.vdh.todo.todolist.presentation.model.ToDoListViewState
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import javax.inject.Inject
 
@@ -25,7 +25,7 @@ class ToDoListViewModel @Inject constructor(
     private val toDoListDomainToPresentationMapper: ToDoListDomainToPresentationMapper,
     useCaseExecutorProvider: UseCaseExecutorProvider,
     application: Application,
-) : BaseViewModel<NewFeatureViewState, NewFeaturePresentationNotification>(
+) : BaseViewModel<ToDoListViewState, ToDoListPresentationNotification>(
     useCaseExecutorProvider,
     application
 ) {
@@ -40,7 +40,7 @@ class ToDoListViewModel @Inject constructor(
 
     private val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    override fun initialState() = NewFeatureViewState()
+    override fun initialState() = ToDoListViewState()
 
     private val resultMutableLiveData = MutableLiveData<String>()
     val resultLiveData: LiveData<String> = resultMutableLiveData

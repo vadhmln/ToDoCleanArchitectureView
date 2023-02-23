@@ -3,7 +3,7 @@ package ru.vdh.todo.updatetodo.presentation.mapper
 import ru.vdh.todo.updatetodo.domain.model.UpdateToDoDomainModel
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationModel
 
-class NewFeaturePresentationToDomainMapper {
+class UpdateToDoPresentationToDomainMapper {
     fun toDomain(updateToDoPresentationModel: UpdateToDoPresentationModel) =
         UpdateToDoDomainModel(
             id = updateToDoPresentationModel.id,

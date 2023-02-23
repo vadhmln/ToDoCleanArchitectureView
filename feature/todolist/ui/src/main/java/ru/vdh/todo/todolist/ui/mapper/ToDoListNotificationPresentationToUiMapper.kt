@@ -2,12 +2,12 @@ package ru.vdh.todo.todolist.ui.mapper
 
 import ru.vdh.todo.core.ui.mapper.NotificationPresentationToUiMapper
 import ru.vdh.todo.core.ui.model.NotificationUiModel
-import ru.vdh.todo.todolist.presentation.model.NewFeaturePresentationNotification
+import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationNotification
 
-class NewUserNotificationPresentationToUiMapper :
-    NotificationPresentationToUiMapper<NewFeaturePresentationNotification> {
+class ToDoListNotificationPresentationToUiMapper :
+    NotificationPresentationToUiMapper<ToDoListPresentationNotification> {
     override fun toUi(
-        presentationNotification: NewFeaturePresentationNotification
+        presentationNotification: ToDoListPresentationNotification
     ): NotificationUiModel {
         throw IllegalStateException("Notifications not supported.")
     }

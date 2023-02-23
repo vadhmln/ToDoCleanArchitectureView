@@ -1,9 +1,9 @@
-package ru.vdh.todo.todolist.ui.mapper
+package ru.vdh.todo.addtodo.ui.mapper
 
 import ru.vdh.todo.core.ui.navigation.mapper.DestinationPresentationToUiMapper
 import ru.vdh.todo.core.ui.navigation.model.UiDestination
 
-interface NewFeatureDestinationToUiMapper : DestinationPresentationToUiMapper {
+interface AddToDoDestinationToUiMapper : DestinationPresentationToUiMapper {
     abstract class NewFeatureSuccessUiDestination(
         open val dishId: String
     ) : UiDestination

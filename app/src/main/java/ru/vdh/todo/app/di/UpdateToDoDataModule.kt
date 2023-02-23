@@ -7,9 +7,9 @@ import dagger.hilt.components.SingletonComponent
 import ru.vdh.todo.updatetodo.data.datasource.UpdateToDoDataSource
 import ru.vdh.todo.updatetodo.data.mapper.UpdateToDoDataModelToDataSourceMapper
 import ru.vdh.todo.updatetodo.data.mapper.UpdateToDoDataModelToDomainMapper
-import ru.vdh.todo.updatetodo.data.repository.NewFeatureRepositoryImpl
-import ru.vdh.todo.updatetodo.domain.repository.NewFeatureRepository
-import ru.vdh.todo.updatetodo.presentation.mapper.NewFeaturePresentationToDomainMapper
+import ru.vdh.todo.updatetodo.data.repository.UpdateToDoRepositoryImpl
+import ru.vdh.todo.updatetodo.domain.repository.UpdateToDoRepository
+import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoPresentationToDomainMapper
 import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoDomainToPresentationMapper
 import javax.inject.Singleton
 
@@ -24,7 +24,7 @@ class UpdateToDoDataModule {
     fun providesNewFeatureDataModelToDataSourceMapper() = UpdateToDoDataModelToDataSourceMapper()
 
     @Provides
-    fun providesNewFeaturePresentationToDomainMapper() = NewFeaturePresentationToDomainMapper()
+    fun providesNewFeaturePresentationToDomainMapper() = UpdateToDoPresentationToDomainMapper()
 
     @Provides
     fun providesNewFeatureDomainToPresentationMapper() = UpdateToDoDomainToPresentationMapper()
@@ -35,7 +35,7 @@ class UpdateToDoDataModule {
         updateToDoDataSource: UpdateToDoDataSource,
         updateToDoDataModelToDomainMapper: UpdateToDoDataModelToDomainMapper,
         updateToDoDataModelToDataSourceMapper: UpdateToDoDataModelToDataSourceMapper
-    ): NewFeatureRepository = NewFeatureRepositoryImpl(
+    ): UpdateToDoRepository = UpdateToDoRepositoryImpl(
         updateToDoDataSource = updateToDoDataSource,
         updateToDoDataModelToDomainMapper,
         updateToDoDataModelToDataSourceMapper

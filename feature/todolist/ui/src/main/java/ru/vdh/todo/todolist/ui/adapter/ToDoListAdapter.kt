@@ -11,7 +11,7 @@ import ru.vdh.todo.NavGraphDirections
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import ru.vdh.todo.todolist.ui.databinding.RowLayoutBinding
 
-class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+class ToDoListAdapter : RecyclerView.Adapter<ToDoListAdapter.MyViewHolder>() {
 
     private var dataList = emptyList<ToDoListPresentationModel>()
 

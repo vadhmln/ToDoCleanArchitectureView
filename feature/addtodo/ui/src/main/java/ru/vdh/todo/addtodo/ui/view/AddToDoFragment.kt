@@ -24,7 +24,7 @@ import ru.vdh.todo.addtodo.presentation.viewmodel.AddToDoViewModel
 import ru.vdh.todo.addtodo.ui.R
 import ru.vdh.todo.addtodo.ui.databinding.FragmentAddTodoBinding
 import ru.vdh.todo.addtodo.ui.mapper.AddToDoNotificationPresentationToUiMapper
-import ru.vdh.todo.addtodo.ui.mapper.NewFeatureDestinationToUiMapper
+import ru.vdh.todo.addtodo.ui.mapper.AddToDoDestinationToUiMapper
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
@@ -46,7 +46,7 @@ class AddToDoFragment : BaseFragment<AddToDoViewState, AddToDoPresentationNotifi
 
     @Inject
     override lateinit var destinationMapper:
-            NewFeatureDestinationToUiMapper
+            AddToDoDestinationToUiMapper
 
     @Inject
     override lateinit var notificationMapper:

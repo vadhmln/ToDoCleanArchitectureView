@@ -24,19 +24,19 @@ import ru.vdh.todo.NavGraphDirections
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
-import ru.vdh.todo.updatetodo.presentation.model.NewFeaturePresentationNotification
-import ru.vdh.todo.updatetodo.presentation.model.NewFeatureViewState
+import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationNotification
+import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoViewState
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationModel
 import ru.vdh.todo.updatetodo.presentation.viewmodel.UpdateToDoViewModel
 import ru.vdh.todo.updatetodo.ui.R
 import ru.vdh.todo.updatetodo.ui.databinding.FragmentUpdateTodoBinding
-import ru.vdh.todo.updatetodo.ui.mapper.NewFeatureDestinationToUiMapper
-import ru.vdh.todo.updatetodo.ui.mapper.NewUserNotificationPresentationToUiMapper
+import ru.vdh.todo.updatetodo.ui.mapper.UpdateToDoDestinationToUiMapper
+import ru.vdh.todo.updatetodo.ui.mapper.UpdateToDoNotificationPresentationToUiMapper
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class UpdateToDoFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentationNotification>(),
-    NewFeatureViewsProvider {
+class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentationNotification>(),
+    UpdateToDoViewsProvider {
 
     private val args by navArgs<UpdateToDoFragmentArgs>()
 
@@ -52,16 +52,16 @@ class UpdateToDoFragment : BaseFragment<NewFeatureViewState, NewFeaturePresentat
 
     @Inject
     override lateinit var destinationMapper:
-            NewFeatureDestinationToUiMapper
+            UpdateToDoDestinationToUiMapper
 
     @Inject
     override lateinit var notificationMapper:
-            NewUserNotificationPresentationToUiMapper
+            UpdateToDoNotificationPresentationToUiMapper
 
     @Inject
     @JvmSuppressWildcards
     override lateinit var viewStateBinder:
-            ViewStateBinder<NewFeatureViewState, ViewsProvider>
+            ViewStateBinder<UpdateToDoViewState, ViewsProvider>
 
 
     override fun View.bindViews() {
