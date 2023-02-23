@@ -14,6 +14,11 @@ class UpdateToDoRepositoryImpl(
         val updateToDoDataModel = updateToDoDomainToDataMapper.toData(updateToDoDomainModel)
         updateToDoDataSource.updateToDo(updateToDoDataModel)
     }
+
+    override fun deleteToDo(updateToDoDomainModel: UpdateToDoDomainModel) {
+        val updateToDoDataModel = updateToDoDomainToDataMapper.toData(updateToDoDomainModel)
+        updateToDoDataSource.deleteToDo(updateToDoDataModel)
+    }
 }
 
 

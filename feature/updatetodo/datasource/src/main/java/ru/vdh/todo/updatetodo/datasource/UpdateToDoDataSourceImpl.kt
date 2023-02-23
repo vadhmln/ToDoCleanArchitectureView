@@ -10,8 +10,13 @@ class UpdateToDoDataSourceImpl(
     private val toDoDao: ToDoDao,
 ) : UpdateToDoDataSource {
 
-    override fun updateToDo(addToDoDataModel: UpdateToDoDataModel) {
-        val dataBaseToDo = updateToDoDataToDataBaseMapper.toDataBase(addToDoDataModel)
+    override fun updateToDo(updateToDoDataModel: UpdateToDoDataModel) {
+        val dataBaseToDo = updateToDoDataToDataBaseMapper.toDataBase(updateToDoDataModel)
         toDoDao.updateData(dataBaseToDo)
+    }
+
+    override fun deleteToDo(updateToDoDataModel: UpdateToDoDataModel) {
+        val dataBaseToDo = updateToDoDataToDataBaseMapper.toDataBase(updateToDoDataModel)
+        toDoDao.deleteItem(dataBaseToDo)
     }
 }

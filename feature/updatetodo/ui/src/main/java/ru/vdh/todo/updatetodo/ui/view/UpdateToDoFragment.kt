@@ -24,6 +24,7 @@ import ru.vdh.todo.NavGraphDirections
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
+import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationNotification
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoViewState
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationModel
@@ -138,7 +139,7 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
     private fun confirmItemRemoval() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->
-//            viewModel.deleteItem(args.currentItem)
+            viewModel.deleteItem(toUpdateToDoPresentation())
             Toast.makeText(
                 requireContext(),
                 "Successfully Removed: ${args.currentItem.title}",
@@ -150,6 +151,15 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
         builder.setTitle("Delete '${args.currentItem.title}'?")
         builder.setMessage("Are you sure you want to remove '${args.currentItem.title}'?")
         builder.create().show()
+    }
+
+    private fun toUpdateToDoPresentation(): UpdateToDoPresentationModel {
+        return UpdateToDoPresentationModel(
+            id = args.currentItem.id,
+            title = args.currentItem.title,
+            priority = args.currentItem.priority,
+            description = args.currentItem.description
+        )
     }
 
     private fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)

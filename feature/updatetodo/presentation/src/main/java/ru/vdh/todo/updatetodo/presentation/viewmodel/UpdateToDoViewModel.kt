@@ -5,6 +5,7 @@ import android.util.Log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.vdh.todo.core.presentation.viewmodel.BaseViewModel
 import ru.vdh.todo.core.presentation.viewmodel.usecase.UseCaseExecutorProvider
+import ru.vdh.todo.updatetodo.domain.usecase.DeleteToDoUseCase
 import ru.vdh.todo.updatetodo.domain.usecase.UpdateToDoUseCase
 import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoDomainToPresentationMapper
 import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoPresentationToDomainMapper
@@ -16,8 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class UpdateToDoViewModel @Inject constructor(
     private val updateToDoUseCase: UpdateToDoUseCase,
+    private val deleteToDoUseCase: DeleteToDoUseCase,
     private val updateToDoPresentationToDomainMapper: UpdateToDoPresentationToDomainMapper,
-    private val updateToDoDomainToPresentationMapper: UpdateToDoDomainToPresentationMapper,
     useCaseExecutorProvider: UseCaseExecutorProvider,
     application: Application
 ) : BaseViewModel<UpdateToDoViewState, UpdateToDoPresentationNotification>(
@@ -37,10 +38,15 @@ class UpdateToDoViewModel @Inject constructor(
         super.onCleared()
     }
 
-    fun onUpdateToDoAction(addToDoPresentationModel: UpdateToDoPresentationModel) {
+    fun onUpdateToDoAction(updateToDoPresentationModel: UpdateToDoPresentationModel) {
 //        updateViewState(UpdateToDoViewState::loading)
-        val domainToDo = updateToDoPresentationToDomainMapper.toDomain(addToDoPresentationModel)
+        val domainToDo = updateToDoPresentationToDomainMapper.toDomain(updateToDoPresentationModel)
         execute(updateToDoUseCase, domainToDo)
+    }
+
+    fun deleteItem(updateToDoPresentationModel: UpdateToDoPresentationModel) {
+        val domainToDo = updateToDoPresentationToDomainMapper.toDomain(updateToDoPresentationModel)
+        execute(deleteToDoUseCase, domainToDo)
     }
 
     fun parsePriorityToInt(priority: String): Int {

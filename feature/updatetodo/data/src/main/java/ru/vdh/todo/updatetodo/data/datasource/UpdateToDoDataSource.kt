@@ -4,5 +4,7 @@ import ru.vdh.todo.updatetodo.data.model.UpdateToDoDataModel
 
 interface UpdateToDoDataSource {
 
-    fun updateToDo(addToDoDataModel: UpdateToDoDataModel)
+    fun updateToDo(updateToDoDataModel: UpdateToDoDataModel)
+
+    fun deleteToDo(updateToDoDataModel: UpdateToDoDataModel)
 }
