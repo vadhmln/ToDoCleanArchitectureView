@@ -17,10 +17,10 @@ class UpdateToDoUiModule {
 
     @Provides
     @Suppress("UNCHECKED_CAST")
-    fun providesUserDetailsViewStateBinder() = UpdateToDoViewStateBinder()
+    fun providesUpdateToDoViewStateBinder() = UpdateToDoViewStateBinder()
             as ViewStateBinder<UpdateToDoViewState, ViewsProvider>
 
     @Provides
-    fun providesNewUserNotificationPresentationToUiMapper() =
+    fun providesUpdateToDoNotificationPresentationToUiMapper() =
         UpdateToDoNotificationPresentationToUiMapper()
 }

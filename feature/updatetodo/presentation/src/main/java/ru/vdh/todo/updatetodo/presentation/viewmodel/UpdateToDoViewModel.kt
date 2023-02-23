@@ -8,6 +8,7 @@ import ru.vdh.todo.core.presentation.viewmodel.usecase.UseCaseExecutorProvider
 import ru.vdh.todo.updatetodo.domain.usecase.UpdateToDoUseCase
 import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoDomainToPresentationMapper
 import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoPresentationToDomainMapper
+import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationModel
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationNotification
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoViewState
 import javax.inject.Inject
@@ -36,7 +37,13 @@ class UpdateToDoViewModel @Inject constructor(
         super.onCleared()
     }
 
-    fun parsePriority(priority: String): Int {
+    fun onUpdateToDoAction(addToDoPresentationModel: UpdateToDoPresentationModel) {
+//        updateViewState(UpdateToDoViewState::loading)
+        val domainToDo = updateToDoPresentationToDomainMapper.toDomain(addToDoPresentationModel)
+        execute(updateToDoUseCase, domainToDo)
+    }
+
+    fun parsePriorityToInt(priority: String): Int {
         return when (priority) {
             "High priority" -> 0
             "Medium priority" -> 1

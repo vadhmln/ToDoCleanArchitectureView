@@ -16,10 +16,10 @@ class ToDoListUiModule {
 
     @Provides
     @Suppress("UNCHECKED_CAST")
-    fun providesUserDetailsViewStateBinder() = ToDoListViewStateBinder()
+    fun providesToDoListViewStateBinder() = ToDoListViewStateBinder()
             as ViewStateBinder<ToDoListViewState, ViewsProvider>
 
     @Provides
-    fun providesNewUserNotificationPresentationToUiMapper() =
+    fun providesToDoListNotificationPresentationToUiMapper() =
         ToDoListNotificationPresentationToUiMapper()
 }

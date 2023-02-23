@@ -5,12 +5,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.vdh.todo.updatetodo.data.datasource.UpdateToDoDataSource
-import ru.vdh.todo.updatetodo.data.mapper.UpdateToDoDataModelToDataSourceMapper
-import ru.vdh.todo.updatetodo.data.mapper.UpdateToDoDataModelToDomainMapper
+import ru.vdh.todo.updatetodo.data.mapper.UpdateToDoDataToDomainMapper
+import ru.vdh.todo.updatetodo.data.mapper.UpdateToDoDomainToDataMapper
 import ru.vdh.todo.updatetodo.data.repository.UpdateToDoRepositoryImpl
 import ru.vdh.todo.updatetodo.domain.repository.UpdateToDoRepository
-import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoPresentationToDomainMapper
 import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoDomainToPresentationMapper
+import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoPresentationToDomainMapper
 import javax.inject.Singleton
 
 @Module
@@ -18,26 +18,24 @@ import javax.inject.Singleton
 class UpdateToDoDataModule {
 
     @Provides
-    fun providesNewFeatureDataModelToDomainMapper() = UpdateToDoDataModelToDomainMapper()
+    fun providesUpdateToDoDataToDomainMapper() = UpdateToDoDataToDomainMapper()
 
     @Provides
-    fun providesNewFeatureDataModelToDataSourceMapper() = UpdateToDoDataModelToDataSourceMapper()
+    fun providesUpdateToDoDomainToDataMapper() = UpdateToDoDomainToDataMapper()
 
     @Provides
-    fun providesNewFeaturePresentationToDomainMapper() = UpdateToDoPresentationToDomainMapper()
+    fun providesUpdateToDoPresentationToDomainMapper() = UpdateToDoPresentationToDomainMapper()
 
     @Provides
-    fun providesNewFeatureDomainToPresentationMapper() = UpdateToDoDomainToPresentationMapper()
+    fun providesUpdateToDoDomainToPresentationMapper() = UpdateToDoDomainToPresentationMapper()
 
     @Provides
     @Singleton
-    fun provideNewFeatureRepository(
+    fun provideUpdateToDoRepository(
         updateToDoDataSource: UpdateToDoDataSource,
-        updateToDoDataModelToDomainMapper: UpdateToDoDataModelToDomainMapper,
-        updateToDoDataModelToDataSourceMapper: UpdateToDoDataModelToDataSourceMapper
+        updateToDoDomainToDataMapper: UpdateToDoDomainToDataMapper,
     ): UpdateToDoRepository = UpdateToDoRepositoryImpl(
-        updateToDoDataSource = updateToDoDataSource,
-        updateToDoDataModelToDomainMapper,
-        updateToDoDataModelToDataSourceMapper
+        updateToDoDataSource,
+        updateToDoDomainToDataMapper
     )
 }

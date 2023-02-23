@@ -82,7 +82,7 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
 
         binding.currentTitleEditText.text = args.currentItem.title.toEditable()
         binding.currentDescriptionEditText.text = args.currentItem.description.toEditable()
-        binding.currentPrioritiesSpinner.setSelection(viewModel.parsePriority(args.currentItem.priority))
+        binding.currentPrioritiesSpinner.setSelection(viewModel.parsePriorityToInt(args.currentItem.priority))
 
         return binding.root
     }
@@ -124,7 +124,7 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
                 getPriority,
                 description
             )
-//            viewModel.updateData(updatedItem)
+            viewModel.onUpdateToDoAction(updatedItem)
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_SHORT).show()
             // Navigate back
             findNavController().navigate(NavGraphDirections.actionGlobalToNavTodoList())

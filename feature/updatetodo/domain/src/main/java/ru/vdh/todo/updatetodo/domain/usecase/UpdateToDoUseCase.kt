@@ -8,9 +8,10 @@ import ru.vdh.todo.updatetodo.domain.repository.UpdateToDoRepository
 class UpdateToDoUseCase(
     private val updateToDoRepository: UpdateToDoRepository,
     private val coroutineContextProvider: CoroutineContextProvider
-) : BackgroundExecutingUseCase<UpdateToDoDomainModel, UpdateToDoDomainModel>(coroutineContextProvider) {
-    override fun executeInBackground(request: UpdateToDoDomainModel): UpdateToDoDomainModel {
-        TODO("Not yet implemented")
+) : BackgroundExecutingUseCase<UpdateToDoDomainModel, Unit>(coroutineContextProvider) {
+
+    override fun executeInBackground(request: UpdateToDoDomainModel) {
+        updateToDoRepository.updateToDo(request)
     }
 
 

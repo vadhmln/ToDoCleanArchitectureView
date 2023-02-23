@@ -8,8 +8,6 @@ import ru.vdh.todo.todolist.data.datasource.ToDoListDataSource
 import ru.vdh.todo.todolist.data.mapper.ToDoListDataToDomainMapper
 import ru.vdh.todo.todolist.data.mapper.ToDoListDomainToDataMapper
 import ru.vdh.todo.todolist.data.repository.ToDoListRepositoryImpl
-import ru.vdh.todo.todolist.datasource.mapper.DataBaseToToDoListDataMapper
-import ru.vdh.todo.todolist.datasource.mapper.ToDoListDataToDataBaseMapper
 import ru.vdh.todo.todolist.domain.repository.ToDoListRepository
 import ru.vdh.todo.todolist.presentation.mapper.ToDoListDomainToPresentationMapper
 import ru.vdh.todo.todolist.presentation.mapper.ToDoListPresentationToDomainMapper
