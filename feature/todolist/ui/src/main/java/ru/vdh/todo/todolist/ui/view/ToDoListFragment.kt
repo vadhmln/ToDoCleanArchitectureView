@@ -71,10 +71,6 @@ class ToDoListFragment : BaseFragment<ToDoListViewState, ToDoListPresentationNot
 
         Log.e("AAA", "ToDoListFragment created!!!")
 
-        //подписка на изменение данных
-        viewModel.resultLiveData.observe(viewLifecycleOwner) {
-        }
-
         _binding = FragmentListTodoBinding.inflate(inflater, container, false)
 
         setupRecyclerview()

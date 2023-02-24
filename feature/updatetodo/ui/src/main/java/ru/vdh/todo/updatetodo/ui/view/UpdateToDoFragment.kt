@@ -80,7 +80,7 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
         _binding = FragmentUpdateTodoBinding.inflate(inflater, container, false)
 
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        
         binding.currentTitleEditText.text = args.currentItem.title.toEditable()
         binding.currentDescriptionEditText.text = args.currentItem.description.toEditable()
         binding.currentPrioritiesSpinner.setSelection(viewModel.parsePriorityToInt(args.currentItem.priority))

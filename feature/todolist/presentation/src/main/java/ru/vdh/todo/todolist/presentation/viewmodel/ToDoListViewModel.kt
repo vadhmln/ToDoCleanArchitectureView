@@ -42,9 +42,6 @@ class ToDoListViewModel @Inject constructor(
 
     override fun initialState() = ToDoListViewState()
 
-    private val resultMutableLiveData = MutableLiveData<String>()
-    val resultLiveData: LiveData<String> = resultMutableLiveData
-
     init {
         Log.e("AAA", "UserDetailsViewModel created!!!")
     }

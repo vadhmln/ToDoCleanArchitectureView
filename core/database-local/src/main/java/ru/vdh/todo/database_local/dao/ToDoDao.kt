@@ -1,6 +1,5 @@
 package ru.vdh.todo.database_local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -15,6 +14,9 @@ interface ToDoDao {
 
     @Query("SELECT * FROM todo_table ORDER BY id ASC")
     fun getAllData(): Flow<List<ToDoLocalDataBaseModel>>
+
+    @Query("SELECT * FROM todo_table WHERE id = :id")
+    fun getItemById(id: Int) : ToDoLocalDataBaseModel
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertData(toDoLocalDataBaseModel: ToDoLocalDataBaseModel)

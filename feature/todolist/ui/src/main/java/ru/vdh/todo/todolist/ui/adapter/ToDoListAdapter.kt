@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.vdh.todo.NavGraphDirections
+import ru.vdh.todo.core.ui.R
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import ru.vdh.todo.todolist.ui.databinding.RowLayoutBinding
 
@@ -55,21 +55,21 @@ class ToDoListAdapter : RecyclerView.Adapter<ToDoListAdapter.MyViewHolder>() {
             "High priority" -> holder.priorityIndicator.setCardBackgroundColor(
                 ContextCompat.getColor(
                     holder.itemView.context,
-                    ru.vdh.todo.core.ui.R.color.red
+                    R.color.red
                 )
             )
 
             "Medium priority" -> holder.priorityIndicator.setCardBackgroundColor(
                 ContextCompat.getColor(
                     holder.itemView.context,
-                    ru.vdh.todo.core.ui.R.color.yellow
+                    R.color.yellow
                 )
             )
 
             "Low priority" -> holder.priorityIndicator.setCardBackgroundColor(
                 ContextCompat.getColor(
                     holder.itemView.context,
-                    ru.vdh.todo.core.ui.R.color.green
+                    R.color.green
                 )
             )
         }
