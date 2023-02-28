@@ -41,8 +41,6 @@ dependencies {
     implementation project(':core:presentation')
     implementation project(':feature:updatetodo:presentation')
 
-    implementation project(':feature:todolist:presentation')
-
     implementation libs.bundles.android.core
     implementation(libs.bundles.fragment)
     implementation(libs.androidx.lifecycle.livedata)

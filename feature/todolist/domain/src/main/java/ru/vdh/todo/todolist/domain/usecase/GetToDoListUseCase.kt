@@ -9,10 +9,10 @@ import ru.vdh.todo.todolist.domain.repository.ToDoListRepository
 class GetToDoListUseCase(
     private val toDoListRepository: ToDoListRepository,
     private val coroutineContextProvider: CoroutineContextProvider
-) : BackgroundExecutingUseCase<Flow<List<ToDoListDomainModel>>, Flow<List<ToDoListDomainModel>>>(
+) : BackgroundExecutingUseCase<Int, Flow<List<ToDoListDomainModel>>>(
     coroutineContextProvider
 ) {
 
-    override fun executeInBackground(request: Flow<List<ToDoListDomainModel>>) =
+    override fun executeInBackground(request: Int) =
         toDoListRepository.getAllData()
 }

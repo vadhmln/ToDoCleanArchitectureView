@@ -1,8 +1,11 @@
 package ru.vdh.todo.app.di
 
+import android.content.Context
+import android.view.View
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ru.vdh.todo.todolist.data.datasource.ToDoListDataSource
 import ru.vdh.todo.todolist.data.mapper.ToDoListDataToDomainMapper
@@ -28,6 +31,9 @@ class ToDoListDataModule {
 
     @Provides
     fun providesToDoListDomainToPresentationMapper() = ToDoListDomainToPresentationMapper()
+
+    @Provides
+    fun providesView(@ApplicationContext context: Context) = View(context)
 
     @Provides
     @Singleton

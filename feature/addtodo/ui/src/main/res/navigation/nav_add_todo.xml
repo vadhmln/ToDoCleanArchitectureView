@@ -6,6 +6,7 @@
     app:startDestination="@id/addToDoFragment">
     <fragment
         android:id="@+id/addToDoFragment"
+        android:tag = "addToDoFragment"
         android:name="ru.vdh.todo.addtodo.ui.view.AddToDoFragment"
         android:label="Add"
         tools:layout="@layout/fragment_add_todo" />

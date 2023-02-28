@@ -1,5 +1,6 @@
 package ru.vdh.todo.newfeature.presentation.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,8 +23,11 @@ class NewFeatureViewModel @Inject constructor(
     private val saveNewFeatureUseCase: SaveNewFeatureUseCase,
     useCaseExecutorProvider: UseCaseExecutorProvider,
     private val newFeaturePresentationToDomainMapper: NewFeaturePresentationToDomainMapper,
-    private val newFeatureDomainToPresentationMapper: NewFeatureDomainToPresentationMapper
-) : BaseViewModel<NewFeatureViewState, NewFeaturePresentationNotification>(useCaseExecutorProvider) {
+    private val newFeatureDomainToPresentationMapper: NewFeatureDomainToPresentationMapper,
+    application: Application
+) : BaseViewModel<NewFeatureViewState, NewFeaturePresentationNotification>(useCaseExecutorProvider,
+    application
+) {
 
     override fun initialState() = NewFeatureViewState()
 

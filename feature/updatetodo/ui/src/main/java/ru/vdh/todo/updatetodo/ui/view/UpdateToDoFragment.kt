@@ -24,7 +24,6 @@ import ru.vdh.todo.NavGraphDirections
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
-import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationNotification
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoViewState
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationModel
@@ -125,7 +124,7 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
                 getPriority,
                 description
             )
-            viewModel.onUpdateToDoAction(updatedItem)
+            viewModel.updateToDo(updatedItem)
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_SHORT).show()
             // Navigate back
             findNavController().navigate(NavGraphDirections.actionGlobalToNavTodoList())

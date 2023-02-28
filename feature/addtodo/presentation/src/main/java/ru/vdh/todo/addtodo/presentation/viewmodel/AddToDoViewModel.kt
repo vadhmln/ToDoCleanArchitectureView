@@ -5,10 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import ru.vdh.todo.addtodo.domain.model.AddToDoDomainModel
 import ru.vdh.todo.addtodo.domain.usecase.AddToDoUseCase
-import ru.vdh.todo.addtodo.presentation.mapper.AddToDoDomainToPresentationMapper
 import ru.vdh.todo.addtodo.presentation.mapper.AddToDoPresentationToDomainMapper
 import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationModel
 import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationNotification
@@ -37,16 +34,15 @@ class AddToDoViewModel @Inject constructor(
         Log.e("AAA", "AddToDoViewModel created!!!")
     }
 
-    //вызывается когда связанная с ней активити/fragment уничтожается
-    override fun onCleared() {
-        Log.e("AAA", "AddToDoViewModel cleared!!!")
-        super.onCleared()
-    }
-
-    fun onAddToDoAction(addToDoPresentationModel: AddToDoPresentationModel) {
+    fun addToDo(addToDoPresentationModel: AddToDoPresentationModel) {
         updateViewState(AddToDoViewState::loading)
         val domainToDo = addToDoPresentationToDomainMapper.toDomain(addToDoPresentationModel)
         execute(addToDoUseCase, domainToDo)
     }
 
+    //вызывается когда связанная с ней активити/fragment уничтожается
+    override fun onCleared() {
+        Log.e("AAA", "AddToDoViewModel cleared!!!")
+        super.onCleared()
+    }
 }

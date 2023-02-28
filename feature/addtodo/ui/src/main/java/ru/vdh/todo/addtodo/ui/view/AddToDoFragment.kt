@@ -128,7 +128,7 @@ class AddToDoFragment : BaseFragment<AddToDoViewState, AddToDoPresentationNotifi
                 mPriority,
                 mDescription
             )
-            viewModel.onAddToDoAction(newData)
+            viewModel.addToDo(newData)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
             // Navigate Back
             findNavController().navigate(NavGraphDirections.actionGlobalToNavTodoList())

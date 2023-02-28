@@ -1,5 +1,6 @@
 package ru.vdh.todo.app.di
 
+import androidx.fragment.app.Fragment
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,6 +10,7 @@ import ru.vdh.todo.core.ui.view.ViewsProvider
 import ru.vdh.todo.todolist.presentation.model.ToDoListViewState
 import ru.vdh.todo.todolist.ui.binder.ToDoListViewStateBinder
 import ru.vdh.todo.todolist.ui.mapper.ToDoListNotificationPresentationToUiMapper
+import ru.vdh.todo.todolist.ui.view.ToDoListFragment
 
 @Module
 @InstallIn(FragmentComponent::class)
@@ -16,8 +18,11 @@ class ToDoListUiModule {
 
     @Provides
     @Suppress("UNCHECKED_CAST")
-    fun providesToDoListViewStateBinder() = ToDoListViewStateBinder()
-            as ViewStateBinder<ToDoListViewState, ViewsProvider>
+    fun providesToDoListViewStateBinder(
+        fragment: Fragment,
+    ) =
+        ToDoListViewStateBinder(fragment as ToDoListFragment, fragment as ToDoListFragment)
+                as ViewStateBinder<ToDoListViewState, ViewsProvider>
 
     @Provides
     fun providesToDoListNotificationPresentationToUiMapper() =

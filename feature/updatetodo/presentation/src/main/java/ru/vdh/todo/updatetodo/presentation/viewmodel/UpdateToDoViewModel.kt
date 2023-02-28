@@ -7,7 +7,6 @@ import ru.vdh.todo.core.presentation.viewmodel.BaseViewModel
 import ru.vdh.todo.core.presentation.viewmodel.usecase.UseCaseExecutorProvider
 import ru.vdh.todo.updatetodo.domain.usecase.DeleteToDoUseCase
 import ru.vdh.todo.updatetodo.domain.usecase.UpdateToDoUseCase
-import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoDomainToPresentationMapper
 import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoPresentationToDomainMapper
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationModel
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationNotification
@@ -32,13 +31,7 @@ class UpdateToDoViewModel @Inject constructor(
         Log.e("AAA", "UserDetailsViewModel created!!!")
     }
 
-    //вызывается когда связанная с ней активити/fragment уничтожается
-    override fun onCleared() {
-        Log.e("AAA", "UserDetailsViewModel cleared!!!")
-        super.onCleared()
-    }
-
-    fun onUpdateToDoAction(updateToDoPresentationModel: UpdateToDoPresentationModel) {
+    fun updateToDo(updateToDoPresentationModel: UpdateToDoPresentationModel) {
 //        updateViewState(UpdateToDoViewState::loading)
         val domainToDo = updateToDoPresentationToDomainMapper.toDomain(updateToDoPresentationModel)
         execute(updateToDoUseCase, domainToDo)
@@ -60,4 +53,9 @@ class UpdateToDoViewModel @Inject constructor(
         }
     }
 
+    //вызывается когда связанная с ней активити/fragment уничтожается
+    override fun onCleared() {
+        Log.e("AAA", "UpdateToDoViewModel cleared!!!")
+        super.onCleared()
+    }
 }

@@ -1,43 +1,49 @@
 package ru.vdh.todo.todolist.ui.adapter
 
+import android.content.Context
+import android.icu.number.IntegerWidth
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import ru.vdh.todo.NavGraphDirections
 import ru.vdh.todo.core.ui.R
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
-import ru.vdh.todo.todolist.ui.databinding.RowLayoutBinding
+import javax.inject.Inject
+import javax.inject.Singleton
+import kotlin.properties.Delegates
 
-class ToDoListAdapter : RecyclerView.Adapter<ToDoListAdapter.MyViewHolder>() {
+@Singleton
+class ToDoListAdapter @Inject constructor() : RecyclerView.Adapter<ToDoListAdapter.MyViewHolder>() {
+
+    private val delegateOnClickListener = DelegateOnClickListener()
+
+    var onToDoItemClickListener: OnClickListener = delegateOnClickListener.onToDoItemClickListener
 
     private var dataList = emptyList<ToDoListPresentationModel>()
 
-    class MyViewHolder(private val binding: RowLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        var title = binding.titleTxt
-        var description = binding.descriptionTxt
-        var priorityIndicator = binding.priorityIndicator
-        var rawBackground = binding.rowBackground
+    class MyViewHolder @Inject constructor(
+        private val onClickListener: OnClickListener,
+        itemView: View
+    ) : RecyclerView.ViewHolder(itemView) {
 
-        companion object {
-            fun from(parent: ViewGroup): MyViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = RowLayoutBinding.inflate(layoutInflater, parent, false)
-                return MyViewHolder(
-                    binding
-                )
-            }
-        }
+        val title: TextView by lazy { itemView.findViewById(ru.vdh.todo.todolist.ui.R.id.title_txt) }
+        val description: TextView by lazy { itemView.findViewById(ru.vdh.todo.todolist.ui.R.id.description_txt) }
+        val priorityIndicator: MaterialCardView by lazy { itemView.findViewById(ru.vdh.todo.todolist.ui.R.id.priority_indicator) }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder.from(
-            parent
-        )
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder =
+        LayoutInflater.from(parent.context)
+            .inflate(ru.vdh.todo.todolist.ui.R.layout.row_layout, parent, false)
+            .let { view -> MyViewHolder(delegateOnClickListener, view) }
 
     override fun getItemCount(): Int {
         return dataList.size
@@ -46,9 +52,9 @@ class ToDoListAdapter : RecyclerView.Adapter<ToDoListAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.title.text = dataList[position].title
         holder.description.text = dataList[position].description
-        holder.rawBackground.setOnClickListener {
-            val action = NavGraphDirections.actionGlobalToNavUpdateTodo(dataList[position])
-            holder.itemView.findNavController().navigate(action)
+        holder.itemView.setOnClickListener {
+
+            onToDoItemClickListener.onToDoItemClick(dataList[position])
         }
 
         when (dataList[position].priority) {
@@ -80,5 +86,13 @@ class ToDoListAdapter : RecyclerView.Adapter<ToDoListAdapter.MyViewHolder>() {
         val toDoDiffResult = DiffUtil.calculateDiff(toDoDiffUtil)
         this.dataList = toDoData
         toDoDiffResult.dispatchUpdatesTo(this)
+    }
+
+    interface OnClickListener {
+        fun onToDoItemClick(currentItem: ToDoListPresentationModel)
+
+        object DoNothing : OnClickListener {
+            override fun onToDoItemClick(currentItem: ToDoListPresentationModel) = Unit
+        }
     }
 }
