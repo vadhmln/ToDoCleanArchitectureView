@@ -94,35 +94,35 @@ dependencies {
 
 }
 
-tasks.whenTaskAdded { task ->
-    if (task.name.contains('generateSafeArgs')) {
-        println("Added dependency to task " + task.name)
-        task.doLast {
-            fileTree(appNavigation)
-                    .filter { it.isFile() && it.name.contains("Directions") }
-                    .forEach { file ->
-                        println("Changing ${file.name} navigation file")
-                        if (file.exists()) {
-                            def lines = file.readLines()
-                            lines = lines.plus(2, "import ru.vdh.todo.core.ui.R")
-                            file.text = lines.join("\n")
-                        }
-                    }
-            move(file("$appNavigation"), file("$navigationPath"))
-        }
-    }
-}
-
-private def move(File sourceFile, File destFile) {
-    if (sourceFile.isDirectory()) {
-        File[] files = sourceFile.listFiles()
-        assert files != null
-        for (File file : files) move(file, new File(destFile, file.getName()))
-        if (!sourceFile.delete()) throw new RuntimeException()
-    } else {
-        if (!destFile.getParentFile().exists())
-            if (!destFile.getParentFile().mkdirs()) throw new RuntimeException()
-        if (!sourceFile.renameTo(destFile)) throw new RuntimeException()
-    }
-}
+//tasks.whenTaskAdded { task ->
+//    if (task.name.contains('generateSafeArgs')) {
+//        println("Added dependency to task " + task.name)
+//        task.doLast {
+//            fileTree(appNavigation)
+//                    .filter { it.isFile() && it.name.contains("Directions") }
+//                    .forEach { file ->
+//                        println("Changing ${file.name} navigation file")
+//                        if (file.exists()) {
+//                            def lines = file.readLines()
+//                            lines = lines.plus(2, "import ru.vdh.todo.core.ui.R")
+//                            file.text = lines.join("\n")
+//                        }
+//                    }
+//            move(file("$appNavigation"), file("$navigationPath"))
+//        }
+//    }
+//}
+//
+//private def move(File sourceFile, File destFile) {
+//    if (sourceFile.isDirectory()) {
+//        File[] files = sourceFile.listFiles()
+//        assert files != null
+//        for (File file : files) move(file, new File(destFile, file.getName()))
+//        if (!sourceFile.delete()) throw new RuntimeException()
+//    } else {
+//        if (!destFile.getParentFile().exists())
+//            if (!destFile.getParentFile().mkdirs()) throw new RuntimeException()
+//        if (!sourceFile.renameTo(destFile)) throw new RuntimeException()
+//    }
+//}
 

@@ -49,7 +49,6 @@ class NavigationModule {
     @Provides
     fun providesSavedStateHandle() = SavedStateHandle()
 
-
     @Provides
     fun providesDelegateOnClickListener() = DelegateOnClickListener()
 
@@ -62,13 +61,15 @@ class NavigationModule {
 
     @Provides
     fun providesAppAddToDoDestinationToUiMapper(
+        activity: FragmentActivity,
         globalDestinationToUiMapper: GlobalDestinationToUiMapper
     ): AddToDoDestinationToUiMapper =
-        AppAddToDoDestinationToUiMapper(globalDestinationToUiMapper)
+        AppAddToDoDestinationToUiMapper(activity, globalDestinationToUiMapper)
 
     @Provides
     fun providesAppUpdateToDoDestinationToUiMapper(
+        activity: FragmentActivity,
         globalDestinationToUiMapper: GlobalDestinationToUiMapper
     ): UpdateToDoDestinationToUiMapper =
-        AppUpdateToDoDestinationToUiMapper(globalDestinationToUiMapper)
+        AppUpdateToDoDestinationToUiMapper(activity, globalDestinationToUiMapper)
 }

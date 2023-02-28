@@ -1,25 +1,17 @@
 package ru.vdh.todo.todolist.ui.adapter
 
-import android.content.Context
-import android.icu.number.IntegerWidth
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
-import ru.vdh.todo.NavGraphDirections
 import ru.vdh.todo.core.ui.R
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.properties.Delegates
 
 @Singleton
 class ToDoListAdapter @Inject constructor() : RecyclerView.Adapter<ToDoListAdapter.MyViewHolder>() {

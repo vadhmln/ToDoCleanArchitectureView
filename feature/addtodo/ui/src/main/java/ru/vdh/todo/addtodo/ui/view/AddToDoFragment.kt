@@ -14,17 +14,15 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import ru.vdh.todo.NavGraphDirections
 import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationModel
 import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationNotification
 import ru.vdh.todo.addtodo.presentation.model.AddToDoViewState
 import ru.vdh.todo.addtodo.presentation.viewmodel.AddToDoViewModel
 import ru.vdh.todo.addtodo.ui.R
 import ru.vdh.todo.addtodo.ui.databinding.FragmentAddTodoBinding
-import ru.vdh.todo.addtodo.ui.mapper.AddToDoNotificationPresentationToUiMapper
 import ru.vdh.todo.addtodo.ui.mapper.AddToDoDestinationToUiMapper
+import ru.vdh.todo.addtodo.ui.mapper.AddToDoNotificationPresentationToUiMapper
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
@@ -131,7 +129,8 @@ class AddToDoFragment : BaseFragment<AddToDoViewState, AddToDoPresentationNotifi
             viewModel.addToDo(newData)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
             // Navigate Back
-            findNavController().navigate(NavGraphDirections.actionGlobalToNavTodoList())
+            viewModel.onActionAddToDo(layoutResourceId)
+//            findNavController().navigate(NavGraphDirections.actionGlobalToNavTodoList())
         } else {
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT)
                 .show()

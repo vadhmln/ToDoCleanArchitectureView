@@ -6,4 +6,6 @@ import ru.vdh.todo.todolist.data.model.ToDoListDataModel
 interface ToDoListDataSource {
 
     fun getAllData(): Flow<List<ToDoListDataModel>>
+
+    fun getItemById(toDoId: Int): ToDoListDataModel
 }

@@ -19,4 +19,8 @@ class ToDoListDataSourceImpl(
             }
         }
     }
+
+    override fun getItemById(toDoId: Int): ToDoListDataModel {
+        return dataBaseToToDoListDataMapper.toData(toDoDao.getItemById(toDoId))
+    }
 }

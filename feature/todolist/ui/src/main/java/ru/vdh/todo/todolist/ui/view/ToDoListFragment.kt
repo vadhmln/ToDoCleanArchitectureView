@@ -63,6 +63,12 @@ class ToDoListFragment :
 
     override lateinit var toDoListView: RecyclerView
 
+    private val toDoId by lazy {
+        requireNotNull(
+            requireArguments().getInt("")
+        ) { "A TO DO ID must be provided." }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

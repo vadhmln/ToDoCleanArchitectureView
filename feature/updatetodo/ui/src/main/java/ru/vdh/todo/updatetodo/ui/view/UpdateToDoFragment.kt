@@ -19,8 +19,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
-import ru.vdh.todo.NavGraphDirections
-
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
@@ -127,7 +125,7 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
             viewModel.updateToDo(updatedItem)
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_SHORT).show()
             // Navigate back
-            findNavController().navigate(NavGraphDirections.actionGlobalToNavTodoList())
+            viewModel.onUpdateToDo(layoutResourceId)
         } else {
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT)
                 .show()
@@ -144,7 +142,7 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
                 "Successfully Removed: ${args.currentItem.title}",
                 Toast.LENGTH_SHORT
             ).show()
-            findNavController().navigate(NavGraphDirections.actionGlobalToNavTodoList())
+            viewModel.onUpdateToDo(layoutResourceId)
         }
         builder.setNegativeButton("No") { _, _ -> }
         builder.setTitle("Delete '${args.currentItem.title}'?")

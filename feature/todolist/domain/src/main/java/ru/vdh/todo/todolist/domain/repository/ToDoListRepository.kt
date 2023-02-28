@@ -6,4 +6,6 @@ import ru.vdh.todo.todolist.domain.model.ToDoListDomainModel
 interface ToDoListRepository {
 
     fun getAllData(): Flow<List<ToDoListDomainModel>>
+
+    fun getItemById(toDoId: Int): ToDoListDomainModel
 }

@@ -7,6 +7,7 @@ import ru.vdh.todo.core.presentation.viewmodel.BaseViewModel
 import ru.vdh.todo.core.presentation.viewmodel.usecase.UseCaseExecutorProvider
 import ru.vdh.todo.updatetodo.domain.usecase.DeleteToDoUseCase
 import ru.vdh.todo.updatetodo.domain.usecase.UpdateToDoUseCase
+import ru.vdh.todo.updatetodo.presentation.destination.UpdateToDoPresentationDestination.ToDoList
 import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoPresentationToDomainMapper
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationModel
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationNotification
@@ -35,6 +36,10 @@ class UpdateToDoViewModel @Inject constructor(
 //        updateViewState(UpdateToDoViewState::loading)
         val domainToDo = updateToDoPresentationToDomainMapper.toDomain(updateToDoPresentationModel)
         execute(updateToDoUseCase, domainToDo)
+    }
+
+    fun onUpdateToDo(toDoId: Int) {
+        navigateTo(ToDoList(toDoId))
     }
 
     fun deleteItem(updateToDoPresentationModel: UpdateToDoPresentationModel) {

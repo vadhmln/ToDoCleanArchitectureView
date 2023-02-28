@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.vdh.todo.addtodo.domain.usecase.AddToDoUseCase
+import ru.vdh.todo.addtodo.presentation.destination.AddToDoPresentationDestination.ToDoList
 import ru.vdh.todo.addtodo.presentation.mapper.AddToDoPresentationToDomainMapper
 import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationModel
 import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationNotification
@@ -38,6 +39,10 @@ class AddToDoViewModel @Inject constructor(
         updateViewState(AddToDoViewState::loading)
         val domainToDo = addToDoPresentationToDomainMapper.toDomain(addToDoPresentationModel)
         execute(addToDoUseCase, domainToDo)
+    }
+
+    fun onActionAddToDo(toDoId: Int){
+        navigateTo(ToDoList(toDoId))
     }
 
     //вызывается когда связанная с ней активити/fragment уничтожается
