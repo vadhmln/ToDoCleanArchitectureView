@@ -2,12 +2,18 @@ package ru.vdh.todo.updatetodo.presentation.viewmodel
 
 import android.app.Application
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.liveData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.map
 import ru.vdh.todo.core.presentation.viewmodel.BaseViewModel
 import ru.vdh.todo.core.presentation.viewmodel.usecase.UseCaseExecutorProvider
 import ru.vdh.todo.updatetodo.domain.usecase.DeleteToDoUseCase
+import ru.vdh.todo.updatetodo.domain.usecase.GetToDoItemByIdUseCase
 import ru.vdh.todo.updatetodo.domain.usecase.UpdateToDoUseCase
 import ru.vdh.todo.updatetodo.presentation.destination.UpdateToDoPresentationDestination.ToDoList
+import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoDomainToPresentationMapper
 import ru.vdh.todo.updatetodo.presentation.mapper.UpdateToDoPresentationToDomainMapper
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationModel
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationNotification
@@ -18,7 +24,9 @@ import javax.inject.Inject
 class UpdateToDoViewModel @Inject constructor(
     private val updateToDoUseCase: UpdateToDoUseCase,
     private val deleteToDoUseCase: DeleteToDoUseCase,
+    private val getToDoItemByIdUseCase: GetToDoItemByIdUseCase,
     private val updateToDoPresentationToDomainMapper: UpdateToDoPresentationToDomainMapper,
+    private val updateToDoDomainToPresentationMapper: UpdateToDoDomainToPresentationMapper,
     useCaseExecutorProvider: UseCaseExecutorProvider,
     application: Application
 ) : BaseViewModel<UpdateToDoViewState, UpdateToDoPresentationNotification>(
@@ -26,7 +34,7 @@ class UpdateToDoViewModel @Inject constructor(
     application
 ) {
 
-    override fun initialState() = UpdateToDoViewState()
+    override fun initialState() = UpdateToDoViewState.EXISTING_TODO
 
     init {
         Log.e("AAA", "UserDetailsViewModel created!!!")
@@ -45,6 +53,11 @@ class UpdateToDoViewModel @Inject constructor(
     fun deleteItem(updateToDoPresentationModel: UpdateToDoPresentationModel) {
         val domainToDo = updateToDoPresentationToDomainMapper.toDomain(updateToDoPresentationModel)
         execute(deleteToDoUseCase, domainToDo)
+    }
+
+    fun getItemById(toDoId: Int): LiveData<UpdateToDoPresentationModel> {
+        return getToDoItemByIdUseCase.executeInBackground(toDoId)
+            .map(updateToDoDomainToPresentationMapper::toPresentation).asLiveData()
     }
 
     fun parsePriorityToInt(priority: String): Int {

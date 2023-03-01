@@ -116,8 +116,8 @@ class ToDoListFragment :
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    override fun onItemClick(currentItem: ToDoListPresentationModel) {
-        viewModel.onUpdateToDoAction(currentItem)
+    override fun onItemClick(toDoId: Int) {
+        viewModel.onUpdateToDoAction(toDoId)
     }
 
     override fun onDestroyView() {

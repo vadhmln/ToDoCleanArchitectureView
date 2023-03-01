@@ -7,7 +7,7 @@ class DelegateOnClickListener @Inject constructor() : ToDoListAdapter.OnClickLis
     var onToDoItemClickListener: ToDoListAdapter.OnClickListener =
         ToDoListAdapter.OnClickListener.DoNothing
 
-    override fun onToDoItemClick(currentItem: ToDoListPresentationModel) {
-        onToDoItemClickListener.onToDoItemClick(currentItem)
+    override fun onToDoItemClick(toDoId: Int) {
+        onToDoItemClickListener.onToDoItemClick(toDoId)
     }
 }

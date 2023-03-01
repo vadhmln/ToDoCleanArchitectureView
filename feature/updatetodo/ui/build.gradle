@@ -49,7 +49,6 @@ dependencies {
 
     //Hilt
     implementation(libs.hilt.android)
-    implementation project(path: ':feature:todolist:presentation')
     kapt libs.hilt.compiler
 
     implementation libs.androidx.junit.ktx

@@ -51,8 +51,8 @@ class ToDoListViewModel @Inject constructor(
         navigateTo(AddToDo(toDoId))
     }
 
-    fun onUpdateToDoAction(currentItem: ToDoListPresentationModel) {
-        navigateTo(UpdateToDo(currentItem))
+    fun onUpdateToDoAction(toDoId: Int) {
+        navigateTo(UpdateToDo(toDoId))
     }
 
     private fun presentToDoList(toDoListDomainData: LiveData<List<ToDoListDomainModel>>) {

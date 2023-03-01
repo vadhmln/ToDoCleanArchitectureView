@@ -10,7 +10,7 @@ sealed interface ToDoListPresentationDestination: PresentationDestination {
     ) : ToDoListPresentationDestination
 
     data class UpdateToDo(
-//        val toDoId: Int
-        val currentItem: ToDoListPresentationModel
+        val toDoId: Int
+//        val currentItem: ToDoListPresentationModel
     ) : ToDoListPresentationDestination
 }

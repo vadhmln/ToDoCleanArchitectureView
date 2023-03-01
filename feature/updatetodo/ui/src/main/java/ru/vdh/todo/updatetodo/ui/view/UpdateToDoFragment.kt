@@ -16,7 +16,6 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
@@ -37,6 +36,8 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
     UpdateToDoViewsProvider {
 
     private val args by navArgs<UpdateToDoFragmentArgs>()
+
+    private lateinit var updateToDoPresentationModel: UpdateToDoPresentationModel
 
     private var _binding: FragmentUpdateTodoBinding? = null
 
@@ -78,9 +79,9 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
 
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         
-        binding.currentTitleEditText.text = args.currentItem.title.toEditable()
-        binding.currentDescriptionEditText.text = args.currentItem.description.toEditable()
-        binding.currentPrioritiesSpinner.setSelection(viewModel.parsePriorityToInt(args.currentItem.priority))
+//        binding.currentTitleEditText.text = args.currentItem.title.toEditable()
+//        binding.currentDescriptionEditText.text = args.currentItem.description.toEditable()
+//        binding.currentPrioritiesSpinner.setSelection(viewModel.parsePriorityToInt(args.currentItem.priority))
 
         return binding.root
     }
@@ -106,6 +107,23 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
+
+
+        val editingState =
+            if (args.toDoId > 0) UpdateToDoViewState.EXISTING_TODO
+            else UpdateToDoViewState.NEW_TODO
+
+        // If we arrived here with an itemId of >= 0, then we are editing an existing item
+        if (editingState == UpdateToDoViewState.EXISTING_TODO) {
+            // Request to edit an existing item, whose id was passed in as an argument.
+            // Retrieve that item and populate the UI with its details
+            viewModel.getItemById(args.toDoId).observe(viewLifecycleOwner) { toDoItem ->
+                binding.currentTitleEditText.text = toDoItem.title.toEditable()
+                binding.currentDescriptionEditText.text = toDoItem.description.toEditable()
+                binding.currentPrioritiesSpinner.setSelection(viewModel.parsePriorityToInt(toDoItem.priority))
+                updateToDoPresentationModel = toDoItem
+            }
+        }
     }
 
     private fun updateItem() {
@@ -117,7 +135,7 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
         if (validation) {
             // Update Current Item
             val updatedItem = UpdateToDoPresentationModel(
-                args.currentItem.id,
+                updateToDoPresentationModel.id,
                 title,
                 getPriority,
                 description
@@ -139,23 +157,23 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
             viewModel.deleteItem(toUpdateToDoPresentation())
             Toast.makeText(
                 requireContext(),
-                "Successfully Removed: ${args.currentItem.title}",
+                "Successfully Removed: ${updateToDoPresentationModel.title}",
                 Toast.LENGTH_SHORT
             ).show()
             viewModel.onUpdateToDo(layoutResourceId)
         }
         builder.setNegativeButton("No") { _, _ -> }
-        builder.setTitle("Delete '${args.currentItem.title}'?")
-        builder.setMessage("Are you sure you want to remove '${args.currentItem.title}'?")
+        builder.setTitle("Delete '${updateToDoPresentationModel.title}'?")
+        builder.setMessage("Are you sure you want to remove '${updateToDoPresentationModel.title}'?")
         builder.create().show()
     }
 
     private fun toUpdateToDoPresentation(): UpdateToDoPresentationModel {
         return UpdateToDoPresentationModel(
-            id = args.currentItem.id,
-            title = args.currentItem.title,
-            priority = args.currentItem.priority,
-            description = args.currentItem.description
+            id = updateToDoPresentationModel.id,
+            title = updateToDoPresentationModel.title,
+            priority = updateToDoPresentationModel.priority,
+            description = updateToDoPresentationModel.description
         )
     }
 

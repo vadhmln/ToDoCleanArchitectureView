@@ -40,8 +40,8 @@
         app:popEnterAnim="@anim/from_right"
         app:popExitAnim="@anim/to_left">
         <argument
-            android:name="currentItem"
-            app:argType="ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel" />
+            android:name="toDoId"
+            app:argType="integer" />
     </action>
 
 

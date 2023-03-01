@@ -16,7 +16,7 @@ interface ToDoDao {
     fun getAllData(): Flow<List<ToDoLocalDataBaseModel>>
 
     @Query("SELECT * FROM todo_table WHERE id = :id")
-    fun getItemById(id: Int) : ToDoLocalDataBaseModel
+    fun getItemById(id: Int) : Flow<ToDoLocalDataBaseModel>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertData(toDoLocalDataBaseModel: ToDoLocalDataBaseModel)

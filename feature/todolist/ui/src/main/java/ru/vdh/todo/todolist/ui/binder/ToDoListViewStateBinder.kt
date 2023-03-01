@@ -1,16 +1,13 @@
 package ru.vdh.todo.todolist.ui.binder
 
-import android.annotation.SuppressLint
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import ru.vdh.todo.todolist.presentation.model.ToDoListViewState
-import ru.vdh.todo.todolist.ui.adapter.DelegateOnClickListener
 import ru.vdh.todo.todolist.ui.adapter.ToDoListAdapter
 import ru.vdh.todo.todolist.ui.view.ToDoListViewsProvider
-import javax.inject.Inject
 
 class ToDoListViewStateBinder(
     private val onToDoItemClickListener: OnClickListener,
@@ -46,12 +43,12 @@ class ToDoListViewStateBinder(
     }
 
     private inner class DelegateOnClickListener : ToDoListAdapter.OnClickListener {
-        override fun onToDoItemClick(currentItem: ToDoListPresentationModel) {
-            onToDoItemClickListener.onItemClick(currentItem)
+        override fun onToDoItemClick(toDoId: Int) {
+            onToDoItemClickListener.onItemClick(toDoId)
         }
     }
 
     interface OnClickListener {
-        fun onItemClick(currentItem: ToDoListPresentationModel)
+        fun onItemClick(toDoId: Int)
     }
 }

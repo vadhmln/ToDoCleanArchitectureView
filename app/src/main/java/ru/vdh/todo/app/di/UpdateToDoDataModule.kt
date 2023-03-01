@@ -34,8 +34,10 @@ class UpdateToDoDataModule {
     fun provideUpdateToDoRepository(
         updateToDoDataSource: UpdateToDoDataSource,
         updateToDoDomainToDataMapper: UpdateToDoDomainToDataMapper,
+        updateToDoDataToDomainMapper: UpdateToDoDataToDomainMapper,
     ): UpdateToDoRepository = UpdateToDoRepositoryImpl(
         updateToDoDataSource,
-        updateToDoDomainToDataMapper
+        updateToDoDomainToDataMapper,
+        updateToDoDataToDomainMapper
     )
 }

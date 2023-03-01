@@ -46,7 +46,7 @@ class ToDoListAdapter @Inject constructor() : RecyclerView.Adapter<ToDoListAdapt
         holder.description.text = dataList[position].description
         holder.itemView.setOnClickListener {
 
-            onToDoItemClickListener.onToDoItemClick(dataList[position])
+            onToDoItemClickListener.onToDoItemClick(dataList[position].id)
         }
 
         when (dataList[position].priority) {
@@ -81,10 +81,10 @@ class ToDoListAdapter @Inject constructor() : RecyclerView.Adapter<ToDoListAdapt
     }
 
     interface OnClickListener {
-        fun onToDoItemClick(currentItem: ToDoListPresentationModel)
+        fun onToDoItemClick(toDoId: Int)
 
         object DoNothing : OnClickListener {
-            override fun onToDoItemClick(currentItem: ToDoListPresentationModel) = Unit
+            override fun onToDoItemClick(toDoId: Int) = Unit
         }
     }
 }

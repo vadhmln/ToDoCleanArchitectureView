@@ -24,7 +24,7 @@ class AppToDoListDestinationToUiMapper(
         input: PresentationDestination
     ): UiDestination = when (input) {
         is AddToDo -> AppAddToDo(activity, input.toDoId)
-        is UpdateToDo -> AppUpdateToDo(activity, input.currentItem,)
+        is UpdateToDo -> AppUpdateToDo(activity, input.toDoId,)
         else -> globalDestinationToUiMapper.toUi(input)
     }
 
@@ -45,16 +45,16 @@ class AppToDoListDestinationToUiMapper(
 
     private data class AppUpdateToDo(
         private val activity: FragmentActivity,
-//        override val toDoId: Int,
-        override val currentItem: ToDoListPresentationModel
-    ) : UpdateToDoUiDestination(currentItem) {
+        override val toDoId: Int,
+//        override val currentItem: ToDoListPresentationModel
+    ) : UpdateToDoUiDestination(toDoId) {
         override fun navigate() {
             val currentFragment =
                 activity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main)
 
             currentFragment?.findNavController()
-                ?.navigate(NavGraphDirections.actionGlobalToNavUpdateTodo(currentItem))
-            Log.d("AAA", "An Item was clicked $currentItem!!!")
+                ?.navigate(NavGraphDirections.actionGlobalToNavUpdateTodo(toDoId))
+            Log.d("AAA", "An Item was clicked $toDoId!!!")
         }
     }
 }

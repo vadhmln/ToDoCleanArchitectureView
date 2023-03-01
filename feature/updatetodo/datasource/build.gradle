@@ -35,4 +35,5 @@ dependencies {
     implementation project(':core:database-local')
 
     implementation libs.androidx.junit.ktx
+    implementation(libs.kotlinx.coroutines.android)
 }

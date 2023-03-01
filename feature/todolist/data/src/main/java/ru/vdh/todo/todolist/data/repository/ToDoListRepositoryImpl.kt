@@ -19,10 +19,6 @@ class ToDoListRepositoryImpl(
             }
         }
     }
-
-    override fun getItemById(toDoId: Int): ToDoListDomainModel {
-        return toDoListDataToDomainMapper.toDomain(toDoListDataSource.getItemById(toDoId))
-    }
 }
 
 

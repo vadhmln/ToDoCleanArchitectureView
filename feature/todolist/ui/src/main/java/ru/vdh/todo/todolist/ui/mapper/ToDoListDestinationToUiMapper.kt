@@ -11,7 +11,7 @@ interface ToDoListDestinationToUiMapper : DestinationPresentationToUiMapper {
     ) : UiDestination
 
     abstract class UpdateToDoUiDestination(
-//        open val toDoId: Int,
-        open val currentItem: ToDoListPresentationModel
+        open val toDoId: Int,
+//        open val currentItem: ToDoListPresentationModel
     ) : UiDestination
 }
