@@ -9,5 +9,5 @@ interface UpdateToDoRepository {
 
     fun deleteToDo(updateToDoDomainModel: UpdateToDoDomainModel)
 
-    fun getItemById(toDoId: Int): Flow<UpdateToDoDomainModel>
+    fun getItemById(toDoId: Int): Flow<UpdateToDoDomainModel?>
 }

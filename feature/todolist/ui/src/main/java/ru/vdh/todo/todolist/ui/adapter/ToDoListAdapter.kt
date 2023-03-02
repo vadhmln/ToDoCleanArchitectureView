@@ -20,7 +20,7 @@ class ToDoListAdapter @Inject constructor() : RecyclerView.Adapter<ToDoListAdapt
 
     var onToDoItemClickListener: OnClickListener = delegateOnClickListener.onToDoItemClickListener
 
-    private var dataList = emptyList<ToDoListPresentationModel>()
+    var dataList = emptyList<ToDoListPresentationModel>()
 
     class MyViewHolder @Inject constructor(
         private val onClickListener: OnClickListener,

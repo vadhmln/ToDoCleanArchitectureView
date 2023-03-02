@@ -3,7 +3,7 @@ compileSdk = "33"
 targetSdk = "33"
 minSdk = "26"
 
-gradle-android = "8.1.0-alpha06"
+gradle-android = "8.1.0-alpha07"
 kotlin = "1.7.21"
 
 kotlinxCoroutinesAndroid = "1.6.4"

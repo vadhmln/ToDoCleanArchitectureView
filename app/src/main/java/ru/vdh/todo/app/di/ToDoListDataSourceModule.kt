@@ -25,9 +25,11 @@ class ToDoListDataSourceModule {
     @Singleton
     fun provideAddToDoDataSource(
         dataBaseToToDoListDataMapper: DataBaseToToDoListDataMapper,
+        toDoListDataToDataBaseMapper: ToDoListDataToDataBaseMapper,
         toDoDao: ToDoDao,
     ): ToDoListDataSource = ToDoListDataSourceImpl(
         dataBaseToToDoListDataMapper,
+        toDoListDataToDataBaseMapper,
         toDoDao,
     )
 }

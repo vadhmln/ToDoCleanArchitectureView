@@ -6,14 +6,13 @@ import ru.vdh.todo.todolist.data.model.ToDoListDataModel
 
 class DataBaseToToDoListDataMapper {
 
-    fun toData(
-        input: ToDoLocalDataBaseModel
-    ) = ToDoListDataModel(
-        input.id,
-        input.title,
-        parsePriority(input.priority),
-        input.description
-    )
+    fun toData(input: ToDoLocalDataBaseModel) =
+        ToDoListDataModel(
+            input.id,
+            input.title,
+            parsePriority(input.priority),
+            input.description
+        )
 
     private fun parsePriority(priority: PriorityLocalDataBaseModel): String {
         return when (priority) {

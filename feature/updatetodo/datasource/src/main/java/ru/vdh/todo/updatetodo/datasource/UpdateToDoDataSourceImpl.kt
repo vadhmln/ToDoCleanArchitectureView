@@ -24,7 +24,11 @@ class UpdateToDoDataSourceImpl(
         toDoDao.deleteItem(dataBaseToDo)
     }
 
-    override fun getItemById(toDoId: Int): Flow<UpdateToDoDataModel> {
-        return toDoDao.getItemById(toDoId).map( dataBaseToUpdateToDoDataMapper::toData)
+    override fun getItemById(toDoId: Int): Flow<UpdateToDoDataModel?> {
+//        val data = toDoDao.getItemById(toDoId)
+
+        return toDoDao.getItemById(toDoId).map(dataBaseToUpdateToDoDataMapper::toData)
+
+
     }
 }

@@ -6,20 +6,28 @@ import ru.vdh.todo.updatetodo.data.model.UpdateToDoDataModel
 
 class UpdateToDoDataToDataBaseMapper() {
 
-    fun toDataBase(input: UpdateToDoDataModel): ToDoLocalDataBaseModel {
-        return ToDoLocalDataBaseModel(
+    fun toDataBase(input: UpdateToDoDataModel) =
+        ToDoLocalDataBaseModel(
             input.id,
             input.title,
             parsePriority(input.priority),
             input.description
         )
-    }
 
     private fun parsePriority(priority: String): PriorityLocalDataBaseModel {
-        return when(priority){
-            "High priority" -> { PriorityLocalDataBaseModel.HIGH }
-            "Medium priority" -> { PriorityLocalDataBaseModel.MEDIUM }
-            "Low priority" -> { PriorityLocalDataBaseModel.LOW }
+        return when (priority) {
+            "High priority" -> {
+                PriorityLocalDataBaseModel.HIGH
+            }
+
+            "Medium priority" -> {
+                PriorityLocalDataBaseModel.MEDIUM
+            }
+
+            "Low priority" -> {
+                PriorityLocalDataBaseModel.LOW
+            }
+
             else -> PriorityLocalDataBaseModel.LOW
         }
     }

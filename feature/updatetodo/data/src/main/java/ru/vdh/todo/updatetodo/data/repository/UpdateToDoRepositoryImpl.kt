@@ -24,7 +24,7 @@ class UpdateToDoRepositoryImpl(
         updateToDoDataSource.deleteToDo(updateToDoDataModel)
     }
 
-    override fun getItemById(toDoId: Int): Flow<UpdateToDoDomainModel> {
+    override fun getItemById(toDoId: Int): Flow<UpdateToDoDomainModel?> {
         return updateToDoDataSource.getItemById(toDoId).map(updateToDoDataToDomainMapper::toDomain)
     }
 }

@@ -9,10 +9,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.vdh.todo.core.presentation.viewmodel.BaseViewModel
 import ru.vdh.todo.core.presentation.viewmodel.usecase.UseCaseExecutorProvider
 import ru.vdh.todo.todolist.domain.model.ToDoListDomainModel
+import ru.vdh.todo.todolist.domain.usecase.DeleteToDoUseCase
 import ru.vdh.todo.todolist.domain.usecase.GetToDoListUseCase
 import ru.vdh.todo.todolist.presentation.destination.ToDoListPresentationDestination.UpdateToDo
 import ru.vdh.todo.todolist.presentation.destination.ToDoListPresentationDestination.AddToDo
 import ru.vdh.todo.todolist.presentation.mapper.ToDoListDomainToPresentationMapper
+import ru.vdh.todo.todolist.presentation.mapper.ToDoListPresentationToDomainMapper
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationNotification
 import ru.vdh.todo.todolist.presentation.model.ToDoListViewState
@@ -23,7 +25,9 @@ private typealias DoNothing = Unit
 @HiltViewModel
 class ToDoListViewModel @Inject constructor(
     private val getToDoListUseCase: GetToDoListUseCase,
+    private val deleteToDoUseCase: DeleteToDoUseCase,
     private val toDoListDomainToPresentationMapper: ToDoListDomainToPresentationMapper,
+    private val toDoListPresentationToDomainMapper: ToDoListPresentationToDomainMapper,
     useCaseExecutorProvider: UseCaseExecutorProvider,
     application: Application,
 ) : BaseViewModel<ToDoListViewState, ToDoListPresentationNotification>(
@@ -53,6 +57,11 @@ class ToDoListViewModel @Inject constructor(
 
     fun onUpdateToDoAction(toDoId: Int) {
         navigateTo(UpdateToDo(toDoId))
+    }
+
+    fun deleteItem(toDoListPresentationModel: ToDoListPresentationModel) {
+        val domainToDo = toDoListPresentationToDomainMapper.toDomain(toDoListPresentationModel)
+        execute(deleteToDoUseCase, domainToDo)
     }
 
     private fun presentToDoList(toDoListDomainData: LiveData<List<ToDoListDomainModel>>) {

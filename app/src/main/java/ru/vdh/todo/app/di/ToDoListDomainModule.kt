@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import ru.vdh.todo.core.domain.coroutine.CoroutineContextProvider
 import ru.vdh.todo.todolist.domain.repository.ToDoListRepository
+import ru.vdh.todo.todolist.domain.usecase.DeleteToDoUseCase
 import ru.vdh.todo.todolist.domain.usecase.GetToDoListUseCase
 
 @Module
@@ -22,4 +23,13 @@ class ToDoListDomainModule {
             coroutineContextProvider = coroutineContextProvider
         )
 
+    @Provides
+    fun provideDeleteToDoUseCase(
+        toDoListRepository: ToDoListRepository,
+        coroutineContextProvider: CoroutineContextProvider
+    ): DeleteToDoUseCase =
+        DeleteToDoUseCase(
+            updateToDoRepository = toDoListRepository,
+            coroutineContextProvider = coroutineContextProvider
+        )
 }

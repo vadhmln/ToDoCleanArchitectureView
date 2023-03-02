@@ -4,5 +4,5 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.vdh.todo.core.ui.view.ViewsProvider
 
 interface ToDoListViewsProvider : ViewsProvider {
-    val toDoListView: RecyclerView
+    val recyclerView: RecyclerView
 }

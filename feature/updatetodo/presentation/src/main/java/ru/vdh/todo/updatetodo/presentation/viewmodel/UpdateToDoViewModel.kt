@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.liveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import ru.vdh.todo.core.presentation.viewmodel.BaseViewModel
@@ -46,7 +45,7 @@ class UpdateToDoViewModel @Inject constructor(
         execute(updateToDoUseCase, domainToDo)
     }
 
-    fun onUpdateToDo(toDoId: Int) {
+    fun onUpdateOrDeleteToDo(toDoId: Int) {
         navigateTo(ToDoList(toDoId))
     }
 
@@ -55,7 +54,7 @@ class UpdateToDoViewModel @Inject constructor(
         execute(deleteToDoUseCase, domainToDo)
     }
 
-    fun getItemById(toDoId: Int): LiveData<UpdateToDoPresentationModel> {
+    fun getItemById(toDoId: Int): LiveData<UpdateToDoPresentationModel?> {
         return getToDoItemByIdUseCase.executeInBackground(toDoId)
             .map(updateToDoDomainToPresentationMapper::toPresentation).asLiveData()
     }

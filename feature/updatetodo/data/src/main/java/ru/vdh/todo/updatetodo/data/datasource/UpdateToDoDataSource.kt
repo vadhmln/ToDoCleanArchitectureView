@@ -9,5 +9,5 @@ interface UpdateToDoDataSource {
 
     fun deleteToDo(updateToDoDataModel: UpdateToDoDataModel)
 
-    fun getItemById(toDoId: Int): Flow<UpdateToDoDataModel>
+    fun getItemById(toDoId: Int): Flow<UpdateToDoDataModel?>
 }

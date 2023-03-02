@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -37,7 +38,7 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
 
     private val args by navArgs<UpdateToDoFragmentArgs>()
 
-    private lateinit var updateToDoPresentationModel: UpdateToDoPresentationModel
+    private lateinit var currentToDoItem: UpdateToDoPresentationModel
 
     private var _binding: FragmentUpdateTodoBinding? = null
 
@@ -78,7 +79,7 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
         _binding = FragmentUpdateTodoBinding.inflate(inflater, container, false)
 
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        
+
 //        binding.currentTitleEditText.text = args.currentItem.title.toEditable()
 //        binding.currentDescriptionEditText.text = args.currentItem.description.toEditable()
 //        binding.currentPrioritiesSpinner.setSelection(viewModel.parsePriorityToInt(args.currentItem.priority))
@@ -107,8 +108,6 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-
-
         val editingState =
             if (args.toDoId > 0) UpdateToDoViewState.EXISTING_TODO
             else UpdateToDoViewState.NEW_TODO
@@ -118,10 +117,16 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
             // Request to edit an existing item, whose id was passed in as an argument.
             // Retrieve that item and populate the UI with its details
             viewModel.getItemById(args.toDoId).observe(viewLifecycleOwner) { toDoItem ->
-                binding.currentTitleEditText.text = toDoItem.title.toEditable()
-                binding.currentDescriptionEditText.text = toDoItem.description.toEditable()
-                binding.currentPrioritiesSpinner.setSelection(viewModel.parsePriorityToInt(toDoItem.priority))
-                updateToDoPresentationModel = toDoItem
+                toDoItem?.let {
+                    binding.currentTitleEditText.text = toDoItem.title.toEditable()
+                    binding.currentDescriptionEditText.text = toDoItem.description.toEditable()
+                    binding.currentPrioritiesSpinner.setSelection(
+                        viewModel.parsePriorityToInt(
+                            toDoItem.priority
+                        )
+                    )
+                    currentToDoItem = toDoItem
+                }
             }
         }
     }
@@ -129,21 +134,21 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
     private fun updateItem() {
         val title = binding.currentTitleEditText.text.toString()
         val description = binding.currentDescriptionEditText.text.toString()
-        val getPriority = binding.currentPrioritiesSpinner.selectedItem.toString()
+        val priority = binding.currentPrioritiesSpinner.selectedItem.toString()
 
         val validation = viewModel.verifyDataFromUser(title, description)
         if (validation) {
             // Update Current Item
             val updatedItem = UpdateToDoPresentationModel(
-                updateToDoPresentationModel.id,
+                currentToDoItem.id,
                 title,
-                getPriority,
+                priority,
                 description
             )
             viewModel.updateToDo(updatedItem)
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_SHORT).show()
             // Navigate back
-            viewModel.onUpdateToDo(layoutResourceId)
+            viewModel.onUpdateOrDeleteToDo(currentToDoItem.id)
         } else {
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT)
                 .show()
@@ -157,23 +162,24 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
             viewModel.deleteItem(toUpdateToDoPresentation())
             Toast.makeText(
                 requireContext(),
-                "Successfully Removed: ${updateToDoPresentationModel.title}",
+                "Successfully Removed: ${currentToDoItem.title}",
                 Toast.LENGTH_SHORT
             ).show()
-            viewModel.onUpdateToDo(layoutResourceId)
+            // Navigate back
+            viewModel.onUpdateOrDeleteToDo(currentToDoItem.id)
         }
         builder.setNegativeButton("No") { _, _ -> }
-        builder.setTitle("Delete '${updateToDoPresentationModel.title}'?")
-        builder.setMessage("Are you sure you want to remove '${updateToDoPresentationModel.title}'?")
+        builder.setTitle("Delete '${currentToDoItem.title}'?")
+        builder.setMessage("Are you sure you want to remove '${currentToDoItem.title}'?")
         builder.create().show()
     }
 
     private fun toUpdateToDoPresentation(): UpdateToDoPresentationModel {
         return UpdateToDoPresentationModel(
-            id = updateToDoPresentationModel.id,
-            title = updateToDoPresentationModel.title,
-            priority = updateToDoPresentationModel.priority,
-            description = updateToDoPresentationModel.description
+            id = currentToDoItem.id,
+            title = currentToDoItem.title,
+            priority = currentToDoItem.priority,
+            description = currentToDoItem.description
         )
     }
 

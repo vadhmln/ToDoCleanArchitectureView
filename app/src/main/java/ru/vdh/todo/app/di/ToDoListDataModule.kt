@@ -40,8 +40,10 @@ class ToDoListDataModule {
     fun provideToDoListRepository(
         toDoListDataSource: ToDoListDataSource,
         toDoListDataToDomainMapper: ToDoListDataToDomainMapper,
+        toDoListDomainToDataMapper: ToDoListDomainToDataMapper
     ): ToDoListRepository = ToDoListRepositoryImpl(
         toDoListDataSource = toDoListDataSource,
-        toDoListDataToDomainMapper
+        toDoListDataToDomainMapper,
+        toDoListDomainToDataMapper
     )
 }

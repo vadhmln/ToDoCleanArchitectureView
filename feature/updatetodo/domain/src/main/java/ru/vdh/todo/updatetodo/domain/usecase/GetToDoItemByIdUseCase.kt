@@ -9,7 +9,7 @@ import ru.vdh.todo.updatetodo.domain.repository.UpdateToDoRepository
 class GetToDoItemByIdUseCase(
     private val updateToDoRepository: UpdateToDoRepository,
     private val coroutineContextProvider: CoroutineContextProvider
-) : BackgroundExecutingUseCase<Int, Flow<UpdateToDoDomainModel>>(
+) : BackgroundExecutingUseCase<Int, Flow<UpdateToDoDomainModel?>>(
     coroutineContextProvider
 ) {
 
