@@ -10,4 +10,6 @@ interface ToDoListDataSource {
     fun deleteToDo(toDoListDataModel: ToDoListDataModel)
 
     fun deleteAll()
+
+    fun addToDo(toDoListDataModel: ToDoListDataModel)
 }

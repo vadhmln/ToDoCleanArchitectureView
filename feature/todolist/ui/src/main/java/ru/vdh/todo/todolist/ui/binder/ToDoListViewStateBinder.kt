@@ -87,7 +87,7 @@ class ToDoListViewStateBinder @Inject constructor(
                 Log.d("AAA", "Current swiped item!!!")
                 adapter.notifyItemRemoved(viewHolder.adapterPosition)
                 // Restore Deleted Item
-//                restoreDeletedData(viewHolder.itemView, deletedItem)
+                restoreDeletedData(viewHolder.itemView, deletedItem)
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
@@ -100,7 +100,9 @@ class ToDoListViewStateBinder @Inject constructor(
             Snackbar.LENGTH_LONG
         )
         snackBar.setAction("Undo") {
-//            viewModel.insertData(deletedItem)
+            CoroutineScope(Dispatchers.IO).launch {
+                useCaseProvider.restoreDeletedToDo(deletedItem)
+            }
         }
         snackBar.show()
     }

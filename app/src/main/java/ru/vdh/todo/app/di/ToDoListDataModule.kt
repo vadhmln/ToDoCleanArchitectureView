@@ -14,6 +14,7 @@ import ru.vdh.todo.todolist.data.mapper.ToDoListDomainToDataMapper
 import ru.vdh.todo.todolist.data.repository.ToDoListRepositoryImpl
 import ru.vdh.todo.todolist.domain.repository.ToDoListRepository
 import ru.vdh.todo.todolist.domain.usecase.DeleteToDoUseCase
+import ru.vdh.todo.todolist.domain.usecase.RestoreDeletedToDoUseCase
 import ru.vdh.todo.todolist.presentation.UseCaseProvider
 import ru.vdh.todo.todolist.presentation.mapper.ToDoListDomainToPresentationMapper
 import ru.vdh.todo.todolist.presentation.mapper.ToDoListPresentationToDomainMapper
@@ -61,12 +62,24 @@ class ToDoListDataModule {
         )
 
     @Provides
+    fun provideRestoreDeletedToDoUseCase(
+        toDoListRepository: ToDoListRepository,
+        coroutineContextProvider: CoroutineContextProvider
+    ): RestoreDeletedToDoUseCase =
+        RestoreDeletedToDoUseCase(
+            toDoListRepository = toDoListRepository,
+            coroutineContextProvider = coroutineContextProvider
+        )
+
+    @Provides
     fun providesUseCaseProvider(
         deleteToDoUseCase: DeleteToDoUseCase,
+        restoreDeletedToDoUseCase: RestoreDeletedToDoUseCase,
         toDoListPresentationToDomainMapper: ToDoListPresentationToDomainMapper,
     ) =
         UseCaseProvider(
             deleteToDoUseCase,
+            restoreDeletedToDoUseCase,
             toDoListPresentationToDomainMapper
         )
 

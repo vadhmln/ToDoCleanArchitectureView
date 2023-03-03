@@ -10,4 +10,6 @@ interface ToDoListRepository {
     fun deleteToDo(toDoListDomainModel: ToDoListDomainModel)
 
     fun deleteAll()
+
+    fun addToDo(toDoListDomainModel: ToDoListDomainModel)
 }

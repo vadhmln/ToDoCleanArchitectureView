@@ -30,6 +30,11 @@ class ToDoListRepositoryImpl(
     override fun deleteAll() {
         toDoListDataSource.deleteAll()
     }
+
+    override fun addToDo(toDoListDomainModel: ToDoListDomainModel) {
+        val addToDoDataModel = toDoListDomainToDataMapper.toData(toDoListDomainModel)
+        toDoListDataSource.addToDo(addToDoDataModel)
+    }
 }
 
 
