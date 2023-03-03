@@ -26,6 +26,10 @@ class ToDoListRepositoryImpl(
         val updateToDoDataModel = toDoListDomainToDataMapper.toData(toDoListDomainModel)
         toDoListDataSource.deleteToDo(updateToDoDataModel)
     }
+
+    override fun deleteAll() {
+        toDoListDataSource.deleteAll()
+    }
 }
 
 

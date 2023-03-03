@@ -28,9 +28,6 @@ class AddToDoViewModel @Inject constructor(
 
     override fun initialState() = AddToDoViewState()
 
-    private val resultMutableLiveData = MutableLiveData<String>()
-    val resultLiveData: LiveData<String> = resultMutableLiveData
-
     init {
         Log.e("AAA", "AddToDoViewModel created!!!")
     }

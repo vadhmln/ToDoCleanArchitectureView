@@ -5,12 +5,12 @@ import ru.vdh.todo.core.domain.usecase.BackgroundExecutingUseCase
 import ru.vdh.todo.todolist.domain.model.ToDoListDomainModel
 import ru.vdh.todo.todolist.domain.repository.ToDoListRepository
 
-class DeleteToDoUseCase(
+class DeleteAllToDoUseCase(
     private val toDoListRepository: ToDoListRepository,
     coroutineContextProvider: CoroutineContextProvider
-) : BackgroundExecutingUseCase<ToDoListDomainModel, Unit>(coroutineContextProvider) {
+) : BackgroundExecutingUseCase<Unit, Unit>(coroutineContextProvider) {
 
-    override fun executeInBackground(request: ToDoListDomainModel) {
-        toDoListRepository.deleteToDo(request)
+    override fun executeInBackground(request: Unit) {
+        toDoListRepository.deleteAll()
     }
 }

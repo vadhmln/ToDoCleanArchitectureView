@@ -68,10 +68,6 @@ class AddToDoFragment : BaseFragment<AddToDoViewState, AddToDoPresentationNotifi
 
         Log.e("AAA", "ToDoListFragment created!!!")
 
-        //подписка на изменение данных
-        viewModel.resultLiveData.observe(viewLifecycleOwner) {
-        }
-
         _binding = FragmentAddTodoBinding.inflate(inflater, container, false)
 
         binding.prioritiesSpinner.onItemSelectedListener = viewModel.listener

@@ -1,5 +1,6 @@
 package ru.vdh.todo.todolist.ui.view
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,24 +9,22 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
-import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationNotification
 import ru.vdh.todo.todolist.presentation.model.ToDoListViewState
 import ru.vdh.todo.todolist.presentation.viewmodel.ToDoListViewModel
 import ru.vdh.todo.todolist.ui.R
-import ru.vdh.todo.todolist.ui.adapter.SwipeToDelete
-import ru.vdh.todo.todolist.ui.adapter.ToDoListAdapter
 import ru.vdh.todo.todolist.ui.binder.ToDoListViewStateBinder
 import ru.vdh.todo.todolist.ui.databinding.FragmentListTodoBinding
 import ru.vdh.todo.todolist.ui.mapper.ToDoListDestinationToUiMapper
@@ -66,6 +65,10 @@ class ToDoListFragment :
 
     override lateinit var recyclerView: RecyclerView
 
+    override lateinit var noDataImageView: ImageView
+
+    override lateinit var noDataTextView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -86,6 +89,8 @@ class ToDoListFragment :
         _binding = FragmentListTodoBinding.inflate(inflater, container, false)
 
         recyclerView = binding.recyclerView
+        noDataImageView = binding.noDataImageView
+        noDataTextView = binding.noDataTextView
 
 //        swipeToDelete(recyclerView)
 
@@ -108,10 +113,28 @@ class ToDoListFragment :
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
+                when(menuItem.itemId){
+                    R.id.menu_delete_all -> confirmAllToDoItemsRemoval()
+                }
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun confirmAllToDoItemsRemoval() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+            viewModel.deleteAllToDoItems()
+            Toast.makeText(
+                requireContext(),
+                "Successfully Removed Everything!",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        builder.setNegativeButton("No") { _, _ -> }
+        builder.setTitle("Delete everything?")
+        builder.setMessage("Are you sure you want to remove everything?")
+        builder.create().show()
     }
 
     override fun onItemClick(toDoId: Int) {

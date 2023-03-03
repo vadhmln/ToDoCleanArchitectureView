@@ -8,16 +8,22 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
+import ru.vdh.todo.todolist.presentation.UseCaseProvider
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import ru.vdh.todo.todolist.presentation.model.ToDoListViewState
 import ru.vdh.todo.todolist.ui.adapter.SwipeToDelete
 import ru.vdh.todo.todolist.ui.adapter.ToDoListAdapter
 import ru.vdh.todo.todolist.ui.view.ToDoListViewsProvider
+import javax.inject.Inject
 
-class ToDoListViewStateBinder(
+class ToDoListViewStateBinder @Inject constructor(
     private val onToDoItemClickListener: OnClickListener,
     private val fragment: Fragment,
+    private val useCaseProvider: UseCaseProvider
 ) : ViewStateBinder<ToDoListViewState, ToDoListViewsProvider> {
 
     val adapter by lazy {
@@ -42,7 +48,17 @@ class ToDoListViewStateBinder(
             adapter.setData(data)
             recyclerView.scheduleLayoutAnimation()
         }
-//        swipeToDelete(recyclerView)
+
+        emptyDatabase.observe(fragment.viewLifecycleOwner) {
+            if (it) {
+                noDataImageView.visibility = View.VISIBLE
+                noDataTextView.visibility = View.VISIBLE
+            } else {
+                noDataImageView.visibility = View.INVISIBLE
+                noDataTextView.visibility = View.INVISIBLE
+            }
+        }
+        swipeToDelete(recyclerView)
     }
 
     private fun checkIfDatabaseEmpty(toDoData: List<ToDoListPresentationModel>) {
@@ -59,17 +75,15 @@ class ToDoListViewStateBinder(
         fun onItemClick(toDoId: Int)
     }
 
-    companion object {
-
-    }
-
     private fun swipeToDelete(recyclerView: RecyclerView) {
         val swipeToDeleteCallback = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val deletedItem =
                     adapter.dataList[viewHolder.adapterPosition]
                 // Delete Item
-//                viewModel.deleteItem(deletedItem)
+                CoroutineScope(Dispatchers.IO).launch {
+                    useCaseProvider.deleteItem(deletedItem)
+                }
                 Log.d("AAA", "Current swiped item!!!")
                 adapter.notifyItemRemoved(viewHolder.adapterPosition)
                 // Restore Deleted Item

@@ -8,4 +8,6 @@ interface ToDoListDataSource {
     fun getAllData(): Flow<List<ToDoListDataModel>>
 
     fun deleteToDo(toDoListDataModel: ToDoListDataModel)
+
+    fun deleteAll()
 }

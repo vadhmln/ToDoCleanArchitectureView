@@ -25,4 +25,8 @@ class ToDoListDataSourceImpl(
         val dataBaseToDo = toDoListDataToDataBaseMapper.toDataBase(toDoListDataModel)
         toDoDao.deleteItem(dataBaseToDo)
     }
+
+    override fun deleteAll() {
+        toDoDao.deleteAll()
+    }
 }

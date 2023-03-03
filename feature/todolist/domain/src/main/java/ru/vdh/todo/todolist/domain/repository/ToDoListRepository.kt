@@ -8,4 +8,6 @@ interface ToDoListRepository {
     fun getAllData(): Flow<List<ToDoListDomainModel>>
 
     fun deleteToDo(toDoListDomainModel: ToDoListDomainModel)
+
+    fun deleteAll()
 }

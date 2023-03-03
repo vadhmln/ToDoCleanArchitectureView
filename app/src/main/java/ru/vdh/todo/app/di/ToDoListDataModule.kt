@@ -7,11 +7,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import ru.vdh.todo.core.domain.coroutine.CoroutineContextProvider
 import ru.vdh.todo.todolist.data.datasource.ToDoListDataSource
 import ru.vdh.todo.todolist.data.mapper.ToDoListDataToDomainMapper
 import ru.vdh.todo.todolist.data.mapper.ToDoListDomainToDataMapper
 import ru.vdh.todo.todolist.data.repository.ToDoListRepositoryImpl
 import ru.vdh.todo.todolist.domain.repository.ToDoListRepository
+import ru.vdh.todo.todolist.domain.usecase.DeleteToDoUseCase
+import ru.vdh.todo.todolist.presentation.UseCaseProvider
 import ru.vdh.todo.todolist.presentation.mapper.ToDoListDomainToPresentationMapper
 import ru.vdh.todo.todolist.presentation.mapper.ToDoListPresentationToDomainMapper
 import javax.inject.Singleton
@@ -46,4 +49,25 @@ class ToDoListDataModule {
         toDoListDataToDomainMapper,
         toDoListDomainToDataMapper
     )
+
+    @Provides
+    fun provideDeleteToDoUseCase(
+        toDoListRepository: ToDoListRepository,
+        coroutineContextProvider: CoroutineContextProvider
+    ): DeleteToDoUseCase =
+        DeleteToDoUseCase(
+            toDoListRepository = toDoListRepository,
+            coroutineContextProvider = coroutineContextProvider
+        )
+
+    @Provides
+    fun providesUseCaseProvider(
+        deleteToDoUseCase: DeleteToDoUseCase,
+        toDoListPresentationToDomainMapper: ToDoListPresentationToDomainMapper,
+    ) =
+        UseCaseProvider(
+            deleteToDoUseCase,
+            toDoListPresentationToDomainMapper
+        )
+
 }
