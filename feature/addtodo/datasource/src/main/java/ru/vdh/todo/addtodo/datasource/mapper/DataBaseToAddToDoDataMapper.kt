@@ -10,6 +10,7 @@ class DataBaseToAddToDoDataMapper {
         input: ToDoLocalDataBaseModel,
         converter: Converter
     ) = AddToDoDataModel(
+        input.date,
         input.id,
         input.title,
         converter.fromPriority(input.priority),

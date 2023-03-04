@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ToDoListPresentationModel(
+    var date: Long?,
     val id: Int,
     val title: String,
     val priority: String,

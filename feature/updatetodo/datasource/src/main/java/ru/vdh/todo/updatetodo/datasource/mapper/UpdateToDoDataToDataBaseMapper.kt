@@ -8,10 +8,11 @@ class UpdateToDoDataToDataBaseMapper() {
 
     fun toDataBase(input: UpdateToDoDataModel) =
         ToDoLocalDataBaseModel(
-            input.id,
-            input.title,
-            parsePriority(input.priority),
-            input.description
+            date = input.date,
+            id =input.id,
+            title = input.title,
+            priority = parsePriority(input.priority),
+            description = input.description
         )
 
     private fun parsePriority(priority: String): PriorityLocalDataBaseModel {

@@ -4,11 +4,12 @@ import ru.vdh.todo.todolist.domain.model.ToDoListDomainModel
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 
 class ToDoListDomainToPresentationMapper {
-    fun toPresentation(newToDo: ToDoListDomainModel) =
+    fun toPresentation(input: ToDoListDomainModel) =
         ToDoListPresentationModel(
-            id = newToDo.id,
-            title = newToDo.title,
-            priority = newToDo.priority,
-            description = newToDo.description
+            date = input.date,
+            id = input.id,
+            title = input.title,
+            priority = input.priority,
+            description = input.description
         )
 }

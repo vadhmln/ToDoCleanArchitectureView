@@ -8,6 +8,7 @@ class DataBaseToToDoListDataMapper {
 
     fun toData(input: ToDoLocalDataBaseModel) =
         ToDoListDataModel(
+            input.date,
             input.id,
             input.title,
             parsePriority(input.priority),

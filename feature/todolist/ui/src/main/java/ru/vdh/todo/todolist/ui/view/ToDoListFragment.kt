@@ -92,8 +92,6 @@ class ToDoListFragment :
         noDataImageView = binding.noDataImageView
         noDataTextView = binding.noDataTextView
 
-//        swipeToDelete(recyclerView)
-
         return binding.root
     }
 

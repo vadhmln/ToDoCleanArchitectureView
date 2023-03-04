@@ -3,11 +3,9 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt.android)
     id 'kotlin-kapt'
-    id 'androidx.navigation.safeargs.kotlin'
 }
-
 android {
-    namespace 'ru.vdh.todo.todolist.ui'
+    namespace 'ru.vdh.todo.common'
     compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
@@ -37,11 +35,6 @@ android {
 }
 
 dependencies {
-
-    implementation project(':common')
-    implementation project(':core:ui')
-    implementation project(':core:presentation')
-    implementation project(':feature:todolist:presentation')
 
     implementation libs.bundles.android.core
     implementation(libs.bundles.fragment)

@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
+import ru.vdh.todo.common.DateUtils
 import ru.vdh.todo.core.ui.R
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import javax.inject.Inject
@@ -27,6 +28,7 @@ class ToDoListAdapter @Inject constructor() : RecyclerView.Adapter<ToDoListAdapt
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
 
+        val currentTime: TextView by lazy { itemView.findViewById(ru.vdh.todo.todolist.ui.R.id.date_txt) }
         val title: TextView by lazy { itemView.findViewById(ru.vdh.todo.todolist.ui.R.id.title_txt) }
         val description: TextView by lazy { itemView.findViewById(ru.vdh.todo.todolist.ui.R.id.description_txt) }
         val priorityIndicator: MaterialCardView by lazy { itemView.findViewById(ru.vdh.todo.todolist.ui.R.id.priority_indicator) }
@@ -42,6 +44,8 @@ class ToDoListAdapter @Inject constructor() : RecyclerView.Adapter<ToDoListAdapt
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        holder.currentTime.text =
+            DateUtils.getCurrentDate(dataList[position].date ?: System.currentTimeMillis())
         holder.title.text = dataList[position].title
         holder.description.text = dataList[position].description
         holder.itemView.setOnClickListener {

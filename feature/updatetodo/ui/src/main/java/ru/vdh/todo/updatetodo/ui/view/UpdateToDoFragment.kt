@@ -140,6 +140,7 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
         if (validation) {
             // Update Current Item
             val updatedItem = UpdateToDoPresentationModel(
+                currentToDoItem.date,
                 currentToDoItem.id,
                 title,
                 priority,
@@ -176,6 +177,7 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
 
     private fun toUpdateToDoPresentation(): UpdateToDoPresentationModel {
         return UpdateToDoPresentationModel(
+            date = currentToDoItem.date,
             id = currentToDoItem.id,
             title = currentToDoItem.title,
             priority = currentToDoItem.priority,

@@ -7,6 +7,7 @@ class AddToDoDomainToDataMapper {
 
     fun toData(addToDoDomainModel: AddToDoDomainModel) =
         AddToDoDataModel(
+            date = addToDoDomainModel.date,
             id = addToDoDomainModel.id,
             title = addToDoDomainModel.title,
             priority = addToDoDomainModel.priority,

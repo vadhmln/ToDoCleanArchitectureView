@@ -8,6 +8,7 @@ class AddToDoDataToDataBaseMapper() {
 
     fun toDataBase(input: AddToDoDataModel): ToDoLocalDataBaseModel {
         return ToDoLocalDataBaseModel(
+            input.date,
             input.id,
             input.title,
             parsePriority(input.priority),

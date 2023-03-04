@@ -23,6 +23,7 @@ import ru.vdh.todo.addtodo.ui.R
 import ru.vdh.todo.addtodo.ui.databinding.FragmentAddTodoBinding
 import ru.vdh.todo.addtodo.ui.mapper.AddToDoDestinationToUiMapper
 import ru.vdh.todo.addtodo.ui.mapper.AddToDoNotificationPresentationToUiMapper
+import ru.vdh.todo.common.DateUtils
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
@@ -117,6 +118,7 @@ class AddToDoFragment : BaseFragment<AddToDoViewState, AddToDoPresentationNotifi
         if (validation) {
             // Insert Data to Database
             val newData = AddToDoPresentationModel(
+                date = System.currentTimeMillis(),
                 0,
                 mTitle,
                 mPriority,

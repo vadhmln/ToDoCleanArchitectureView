@@ -4,13 +4,14 @@ import ru.vdh.todo.updatetodo.domain.model.UpdateToDoDomainModel
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationModel
 
 class UpdateToDoDomainToPresentationMapper {
-    fun toPresentation(updateToDoDomainModel: UpdateToDoDomainModel?) =
-        updateToDoDomainModel?.let {
+    fun toPresentation(input: UpdateToDoDomainModel?) =
+        input?.let {
             UpdateToDoPresentationModel(
+                date = input.date,
                 id = it.id,
-                title = updateToDoDomainModel.title,
-                priority = updateToDoDomainModel.priority,
-                description = updateToDoDomainModel.description
+                title = input.title,
+                priority = input.priority,
+                description = input.description
             )
         }
 }

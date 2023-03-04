@@ -9,6 +9,7 @@ class DataBaseToUpdateToDoDataMapper {
     fun toData(input: ToDoLocalDataBaseModel?) =
         input?.let {
             UpdateToDoDataModel(
+                input.date,
                 it.id,
                 input.title,
                 parsePriority(input.priority),

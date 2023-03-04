@@ -69,6 +69,7 @@ dependencies {
     implementation project(':feature:updatetodo:datasource')
 
     implementation project(':core:database-local')
+    implementation project(':common')
 
     implementation(libs.bundles.android.core)
     implementation(libs.bundles.fragment)

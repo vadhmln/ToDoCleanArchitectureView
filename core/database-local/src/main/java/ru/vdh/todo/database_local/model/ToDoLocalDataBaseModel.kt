@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "todo_table")
 @Parcelize
 data class ToDoLocalDataBaseModel(
-
+    var date: Long?,
     @PrimaryKey(autoGenerate = true)
     var id: Int,
     var title: String,

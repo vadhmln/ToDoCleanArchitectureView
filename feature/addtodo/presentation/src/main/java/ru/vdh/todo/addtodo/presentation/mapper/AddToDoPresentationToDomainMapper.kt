@@ -6,6 +6,7 @@ import ru.vdh.todo.addtodo.presentation.model.AddToDoPresentationModel
 class AddToDoPresentationToDomainMapper {
     fun toDomain(newToDo: AddToDoPresentationModel) =
         AddToDoDomainModel(
+            date = newToDo.date,
             id = newToDo.id,
             title = newToDo.title,
             priority = newToDo.priority,
