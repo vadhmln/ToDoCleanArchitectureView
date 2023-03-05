@@ -14,4 +14,8 @@ interface ToDoListRepository {
     fun addToDo(toDoListDomainModel: ToDoListDomainModel)
 
     fun searchDatabase(searchQuery: String): Flow<List<ToDoListDomainModel>>
+
+    fun sortByHighPriority(): Flow<List<ToDoListDomainModel>>
+
+    fun sortByLowPriority(): Flow<List<ToDoListDomainModel>>
 }

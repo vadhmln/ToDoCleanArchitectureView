@@ -1,6 +1,5 @@
 package ru.vdh.todo.todolist.datasource
 
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.vdh.todo.database_local.dao.ToDoDao
@@ -42,4 +41,19 @@ class ToDoListDataSourceImpl(
                 dataBaseToToDoListDataMapper.toData(it)
             }
         }
+
+    override fun sortByHighPriority(): Flow<List<ToDoListDataModel>> =
+        toDoDao.sortByHighPriority().map { list ->
+            list.map {
+                dataBaseToToDoListDataMapper.toData(it)
+            }
+        }
+
+    override fun sortByLowPriority(): Flow<List<ToDoListDataModel>> =
+        toDoDao.sortByLowPriority().map { list ->
+            list.map {
+                dataBaseToToDoListDataMapper.toData(it)
+            }
+        }
+
 }

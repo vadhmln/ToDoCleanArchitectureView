@@ -43,6 +43,21 @@ class ToDoListRepositoryImpl(
                 toDoListDataToDomainMapper.toDomain(it)
             }
         }
+
+    override fun sortByHighPriority(): Flow<List<ToDoListDomainModel>> =
+        toDoListDataSource.sortByHighPriority().map { list ->
+            list.map {
+                toDoListDataToDomainMapper.toDomain(it)
+            }
+        }
+
+    override fun sortByLowPriority(): Flow<List<ToDoListDomainModel>> =
+        toDoListDataSource.sortByLowPriority().map { list ->
+            list.map {
+                toDoListDataToDomainMapper.toDomain(it)
+            }
+        }
+
 }
 
 

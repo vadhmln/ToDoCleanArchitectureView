@@ -126,6 +126,14 @@ class ToDoListFragment:
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.menu_delete_all -> confirmAllToDoItemsRemoval()
+                    R.id.menu_priority_high ->
+                        viewModel.sortByHighPriority(1).observe(viewLifecycleOwner) {
+                            adapter.setData(it)
+                        }
+                    R.id.menu_priority_low ->
+                        viewModel.sortByLowPriority(2).observe(viewLifecycleOwner) {
+                            adapter.setData(it)
+                        }
                 }
                 return true
             }

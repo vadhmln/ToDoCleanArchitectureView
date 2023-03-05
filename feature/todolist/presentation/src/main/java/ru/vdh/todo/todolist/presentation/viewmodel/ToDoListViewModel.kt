@@ -12,6 +12,8 @@ import ru.vdh.todo.core.presentation.viewmodel.usecase.UseCaseExecutorProvider
 import ru.vdh.todo.todolist.domain.model.ToDoListDomainModel
 import ru.vdh.todo.todolist.domain.usecase.DeleteAllToDoUseCase
 import ru.vdh.todo.todolist.domain.usecase.GetToDoListUseCase
+import ru.vdh.todo.todolist.domain.usecase.SearchByHighPriorityUseCase
+import ru.vdh.todo.todolist.domain.usecase.SearchByLowPriorityUseCase
 import ru.vdh.todo.todolist.domain.usecase.SearchInDatabaseUseCase
 import ru.vdh.todo.todolist.presentation.destination.ToDoListPresentationDestination.AddToDo
 import ru.vdh.todo.todolist.presentation.destination.ToDoListPresentationDestination.UpdateToDo
@@ -28,6 +30,8 @@ class ToDoListViewModel @Inject constructor(
     private val getToDoListUseCase: GetToDoListUseCase,
     private val deleteAllToDoUseCase: DeleteAllToDoUseCase,
     private val searchInDatabaseUseCase: SearchInDatabaseUseCase,
+    private val searchByHighPriorityUseCase: SearchByHighPriorityUseCase,
+    private val searchByLowPriorityUseCase: SearchByLowPriorityUseCase,
     private val toDoListDomainToPresentationMapper: ToDoListDomainToPresentationMapper,
     useCaseExecutorProvider: UseCaseExecutorProvider,
     application: Application,
@@ -75,6 +79,20 @@ class ToDoListViewModel @Inject constructor(
 
     fun searchDatabase(searchQuery: String): LiveData<List<ToDoListPresentationModel>> {
         val list = searchInDatabaseUseCase.executeInBackground(searchQuery).map {
+            it.map(toDoListDomainToPresentationMapper::toPresentation)
+        }
+        return list.asLiveData()
+    }
+
+    fun sortByHighPriority(request: Int): LiveData<List<ToDoListPresentationModel>> {
+        val list = searchByHighPriorityUseCase.executeInBackground(request).map {
+            it.map(toDoListDomainToPresentationMapper::toPresentation)
+        }
+        return list.asLiveData()
+    }
+
+    fun sortByLowPriority(request: Int): LiveData<List<ToDoListPresentationModel>> {
+        val list = searchByLowPriorityUseCase.executeInBackground(request).map {
             it.map(toDoListDomainToPresentationMapper::toPresentation)
         }
         return list.asLiveData()
