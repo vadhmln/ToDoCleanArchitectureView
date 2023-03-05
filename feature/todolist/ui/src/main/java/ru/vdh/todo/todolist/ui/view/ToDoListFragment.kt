@@ -100,6 +100,9 @@ class ToDoListFragment:
         noDataImageView = binding.noDataImageView
         noDataTextView = binding.noDataTextView
 
+        // Hide soft keyboard
+//        hideKeyboard(requireActivity())
+
         return binding.root
     }
 
