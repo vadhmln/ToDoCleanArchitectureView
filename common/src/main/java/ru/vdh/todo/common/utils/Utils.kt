@@ -2,6 +2,7 @@ package ru.vdh.todo.common.utils
 
 import android.app.Activity
 import android.content.Context
+import android.text.Editable
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -19,11 +20,13 @@ fun hideKeyboard(activity: Activity) {
     }
 }
 
-fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>){
-    observe(lifecycleOwner, object : Observer<T>{
+fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+    observe(lifecycleOwner, object : Observer<T> {
         override fun onChanged(t: T) {
             observer.onChanged(t)
             removeObserver(this)
         }
     })
 }
+
+fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)

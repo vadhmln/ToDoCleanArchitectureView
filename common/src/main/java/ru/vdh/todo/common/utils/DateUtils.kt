@@ -1,4 +1,4 @@
-package ru.vdh.todo.common
+package ru.vdh.todo.common.utils
 
 import java.text.SimpleDateFormat
 import java.util.Locale

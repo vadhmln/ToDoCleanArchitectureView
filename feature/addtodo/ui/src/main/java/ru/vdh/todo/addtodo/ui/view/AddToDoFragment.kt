@@ -23,7 +23,6 @@ import ru.vdh.todo.addtodo.ui.R
 import ru.vdh.todo.addtodo.ui.databinding.FragmentAddTodoBinding
 import ru.vdh.todo.addtodo.ui.mapper.AddToDoDestinationToUiMapper
 import ru.vdh.todo.addtodo.ui.mapper.AddToDoNotificationPresentationToUiMapper
-import ru.vdh.todo.common.DateUtils
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider

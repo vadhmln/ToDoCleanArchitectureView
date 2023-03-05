@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
-import ru.vdh.todo.common.DateUtils
+import ru.vdh.todo.common.utils.DateUtils
 import ru.vdh.todo.core.ui.R
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import javax.inject.Inject

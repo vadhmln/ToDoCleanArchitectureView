@@ -2,7 +2,6 @@ package ru.vdh.todo.updatetodo.ui.view
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
@@ -12,19 +11,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
+import ru.vdh.todo.common.utils.toEditable
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
+import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationModel
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationNotification
 import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoViewState
-import ru.vdh.todo.updatetodo.presentation.model.UpdateToDoPresentationModel
 import ru.vdh.todo.updatetodo.presentation.viewmodel.UpdateToDoViewModel
 import ru.vdh.todo.updatetodo.ui.R
 import ru.vdh.todo.updatetodo.ui.databinding.FragmentUpdateTodoBinding
@@ -36,15 +35,15 @@ import javax.inject.Inject
 class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentationNotification>(),
     UpdateToDoViewsProvider {
 
-    private val args by navArgs<UpdateToDoFragmentArgs>()
-
-    private lateinit var currentToDoItem: UpdateToDoPresentationModel
-
     private var _binding: FragmentUpdateTodoBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private val args by navArgs<UpdateToDoFragmentArgs>()
+
+    private lateinit var currentToDoItem: UpdateToDoPresentationModel
 
     override val viewModel: UpdateToDoViewModel by viewModels()
 
@@ -79,10 +78,6 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
         _binding = FragmentUpdateTodoBinding.inflate(inflater, container, false)
 
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-//        binding.currentTitleEditText.text = args.currentItem.title.toEditable()
-//        binding.currentDescriptionEditText.text = args.currentItem.description.toEditable()
-//        binding.currentPrioritiesSpinner.setSelection(viewModel.parsePriorityToInt(args.currentItem.priority))
 
         return binding.root
     }
@@ -184,8 +179,6 @@ class UpdateToDoFragment : BaseFragment<UpdateToDoViewState, UpdateToDoPresentat
             description = currentToDoItem.description
         )
     }
-
-    private fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
     override fun onDestroyView() {
         super.onDestroyView()
