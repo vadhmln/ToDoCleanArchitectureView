@@ -6,14 +6,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.map
 import ru.vdh.todo.core.presentation.viewmodel.BaseViewModel
 import ru.vdh.todo.core.presentation.viewmodel.usecase.UseCaseExecutorProvider
 import ru.vdh.todo.todolist.domain.model.ToDoListDomainModel
 import ru.vdh.todo.todolist.domain.usecase.DeleteAllToDoUseCase
 import ru.vdh.todo.todolist.domain.usecase.GetToDoListUseCase
+import ru.vdh.todo.todolist.domain.usecase.SearchInDatabaseUseCase
 import ru.vdh.todo.todolist.presentation.destination.ToDoListPresentationDestination.AddToDo
 import ru.vdh.todo.todolist.presentation.destination.ToDoListPresentationDestination.UpdateToDo
 import ru.vdh.todo.todolist.presentation.mapper.ToDoListDomainToPresentationMapper
+import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationNotification
 import ru.vdh.todo.todolist.presentation.model.ToDoListViewState
 import javax.inject.Inject
@@ -24,6 +27,7 @@ private typealias DoNothing = Unit
 class ToDoListViewModel @Inject constructor(
     private val getToDoListUseCase: GetToDoListUseCase,
     private val deleteAllToDoUseCase: DeleteAllToDoUseCase,
+    private val searchInDatabaseUseCase: SearchInDatabaseUseCase,
     private val toDoListDomainToPresentationMapper: ToDoListDomainToPresentationMapper,
     useCaseExecutorProvider: UseCaseExecutorProvider,
     application: Application,
@@ -48,6 +52,15 @@ class ToDoListViewModel @Inject constructor(
         )
     }
 
+    private fun presentToDoList(toDoListDomainData: LiveData<List<ToDoListDomainModel>>) {
+        val toDoListPresentationData = toDoListDomainData.map {
+            it.map(toDoListDomainToPresentationMapper::toPresentation)
+        }
+        updateViewState {
+            withToDoList(toDoListPresentationData)
+        }
+    }
+
     fun onAddToDoAction(toDoId: Int) {
         navigateTo(AddToDo(toDoId))
     }
@@ -60,13 +73,11 @@ class ToDoListViewModel @Inject constructor(
         execute(deleteAllToDoUseCase)
     }
 
-    private fun presentToDoList(toDoListDomainData: LiveData<List<ToDoListDomainModel>>) {
-        val toDoListPresentationData = toDoListDomainData.map {
+    fun searchDatabase(searchQuery: String): LiveData<List<ToDoListPresentationModel>> {
+        val list = searchInDatabaseUseCase.executeInBackground(searchQuery).map {
             it.map(toDoListDomainToPresentationMapper::toPresentation)
         }
-        updateViewState {
-            withToDoList(toDoListPresentationData)
-        }
+        return list.asLiveData()
     }
 
     //вызывается когда связанная с ней активити/fragment уничтожается

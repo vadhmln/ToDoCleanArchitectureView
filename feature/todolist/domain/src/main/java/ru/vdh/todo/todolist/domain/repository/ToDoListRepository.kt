@@ -12,4 +12,6 @@ interface ToDoListRepository {
     fun deleteAll()
 
     fun addToDo(toDoListDomainModel: ToDoListDomainModel)
+
+    fun searchDatabase(searchQuery: String): Flow<List<ToDoListDomainModel>>
 }

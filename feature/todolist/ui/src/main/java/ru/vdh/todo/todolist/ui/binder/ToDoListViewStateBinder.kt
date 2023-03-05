@@ -2,7 +2,6 @@ package ru.vdh.todo.todolist.ui.binder
 
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -17,20 +16,15 @@ import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationModel
 import ru.vdh.todo.todolist.presentation.model.ToDoListViewState
 import ru.vdh.todo.todolist.ui.adapter.SwipeToDelete
 import ru.vdh.todo.todolist.ui.adapter.ToDoListAdapter
+import ru.vdh.todo.todolist.ui.view.ToDoListFragment
 import ru.vdh.todo.todolist.ui.view.ToDoListViewsProvider
 import javax.inject.Inject
 
 class ToDoListViewStateBinder @Inject constructor(
     private val onToDoItemClickListener: OnClickListener,
-    private val fragment: Fragment,
+    private val fragment: ToDoListFragment,
     private val useCaseProvider: UseCaseProvider
 ) : ViewStateBinder<ToDoListViewState, ToDoListViewsProvider> {
-
-    val adapter by lazy {
-        ToDoListAdapter().apply {
-            onToDoItemClickListener = _onDishClickListener
-        }
-    }
 
     private val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(false)
 
@@ -38,14 +32,18 @@ class ToDoListViewStateBinder @Inject constructor(
         DelegateOnClickListener()
 
     override fun ToDoListViewsProvider.bindState(viewState: ToDoListViewState) {
+
+        fragment.adapter.apply { onToDoItemClickListener = _onDishClickListener }
+
         if (recyclerView.adapter == null) {
-            recyclerView.adapter = adapter
+            recyclerView.adapter = fragment.adapter
             recyclerView.layoutManager =
                 StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         }
         viewState.toDoList.observe(fragment.viewLifecycleOwner) { data ->
             checkIfDatabaseEmpty(data)
-            adapter.setData(data)
+            fragment.adapter.setData(data)
+            Log.d("AAA", "Data was set!!!")
             recyclerView.scheduleLayoutAnimation()
         }
 
@@ -79,13 +77,13 @@ class ToDoListViewStateBinder @Inject constructor(
         val swipeToDeleteCallback = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val deletedItem =
-                    adapter.dataList[viewHolder.adapterPosition]
+                    fragment.adapter.dataList[viewHolder.adapterPosition]
                 // Delete Item
                 CoroutineScope(Dispatchers.IO).launch {
                     useCaseProvider.deleteItem(deletedItem)
                 }
                 Log.d("AAA", "Current swiped item!!!")
-                adapter.notifyItemRemoved(viewHolder.adapterPosition)
+                fragment.adapter.notifyItemRemoved(viewHolder.adapterPosition)
                 // Restore Deleted Item
                 restoreDeletedData(viewHolder.itemView, deletedItem)
             }

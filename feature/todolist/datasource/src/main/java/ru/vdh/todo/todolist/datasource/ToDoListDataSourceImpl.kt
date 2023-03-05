@@ -1,5 +1,6 @@
 package ru.vdh.todo.todolist.datasource
 
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.vdh.todo.database_local.dao.ToDoDao
@@ -34,4 +35,11 @@ class ToDoListDataSourceImpl(
         val dataBaseToDo = toDoListDataToDataBaseMapper.toDataBase(toDoListDataModel)
         toDoDao.insertData(dataBaseToDo)
     }
+
+    override fun searchDatabase(searchQuery: String): Flow<List<ToDoListDataModel>> =
+        toDoDao.searchDatabase(searchQuery).map { list ->
+            list.map {
+                dataBaseToToDoListDataMapper.toData(it)
+            }
+        }
 }

@@ -12,4 +12,6 @@ interface ToDoListDataSource {
     fun deleteAll()
 
     fun addToDo(toDoListDataModel: ToDoListDataModel)
+
+    fun searchDatabase(searchQuery: String): Flow<List<ToDoListDataModel>>
 }

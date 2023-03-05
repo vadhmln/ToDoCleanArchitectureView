@@ -12,12 +12,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import ru.vdh.todo.common.utils.observeOnce
 import ru.vdh.todo.core.ui.mapper.ViewStateBinder
 import ru.vdh.todo.core.ui.view.BaseFragment
 import ru.vdh.todo.core.ui.view.ViewsProvider
@@ -25,6 +27,7 @@ import ru.vdh.todo.todolist.presentation.model.ToDoListPresentationNotification
 import ru.vdh.todo.todolist.presentation.model.ToDoListViewState
 import ru.vdh.todo.todolist.presentation.viewmodel.ToDoListViewModel
 import ru.vdh.todo.todolist.ui.R
+import ru.vdh.todo.todolist.ui.adapter.ToDoListAdapter
 import ru.vdh.todo.todolist.ui.binder.ToDoListViewStateBinder
 import ru.vdh.todo.todolist.ui.databinding.FragmentListTodoBinding
 import ru.vdh.todo.todolist.ui.mapper.ToDoListDestinationToUiMapper
@@ -32,10 +35,15 @@ import ru.vdh.todo.todolist.ui.mapper.ToDoListNotificationPresentationToUiMapper
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ToDoListFragment :
+class ToDoListFragment:
     BaseFragment<ToDoListViewState, ToDoListPresentationNotification>(),
     ToDoListViewsProvider,
-    ToDoListViewStateBinder.OnClickListener {
+    ToDoListViewStateBinder.OnClickListener,
+    SearchView.OnQueryTextListener {
+
+    val adapter by lazy {
+        ToDoListAdapter()
+    }
 
     private var _binding: FragmentListTodoBinding? = null
 
@@ -108,10 +116,15 @@ class ToDoListFragment :
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.todo_list_menu, menu)
+
+                val search = menu.findItem(R.id.menu_search)
+                val searchView = search.actionView as? SearchView
+                searchView?.isSubmitButtonEnabled = true
+                searchView?.setOnQueryTextListener(this@ToDoListFragment)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId){
+                when (menuItem.itemId) {
                     R.id.menu_delete_all -> confirmAllToDoItemsRemoval()
                 }
                 return true
@@ -133,6 +146,32 @@ class ToDoListFragment :
         builder.setTitle("Delete everything?")
         builder.setMessage("Are you sure you want to remove everything?")
         builder.create().show()
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null) {
+            searchThroughDatabase(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if (query != null) {
+            searchThroughDatabase(query)
+        }
+        return true
+    }
+
+    private fun searchThroughDatabase(query: String) {
+        val searchQuery = "%$query%"
+
+        viewModel.searchDatabase(searchQuery).observeOnce(viewLifecycleOwner) { list ->
+            list?.let {
+                Log.d("AAA", "searchThroughDatabase")
+                adapter.setData(it)
+                Log.d("AAA", "Search data was set $it")
+            }
+        }
     }
 
     override fun onItemClick(toDoId: Int) {
