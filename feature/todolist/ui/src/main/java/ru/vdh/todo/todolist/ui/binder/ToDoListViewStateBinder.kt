@@ -28,12 +28,12 @@ class ToDoListViewStateBinder @Inject constructor(
 
     private val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    private val _onDishClickListener: ToDoListAdapter.OnClickListener =
+    private val _onToDoItemClickListener: ToDoListAdapter.OnClickListener =
         DelegateOnClickListener()
 
     override fun ToDoListViewsProvider.bindState(viewState: ToDoListViewState) {
 
-        fragment.adapter.apply { onToDoItemClickListener = _onDishClickListener }
+        fragment.adapter.apply { onToDoItemClickListener = _onToDoItemClickListener }
 
         if (recyclerView.adapter == null) {
             recyclerView.adapter = fragment.adapter

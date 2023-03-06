@@ -20,4 +20,9 @@
 - RecyclerView Animation
 - Transition Animation
 
+Запускается на:
+Android Studio Electric Eel 
+
+
+
 
